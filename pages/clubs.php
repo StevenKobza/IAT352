@@ -12,7 +12,7 @@
 
     <header class="header">
         <nav>
-            <a href="../index.html"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
+            <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
