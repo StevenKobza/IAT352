@@ -20,7 +20,7 @@
                 <li><a href="./clubs.php">Clubs</a></li>
                 <li><a href="./national-teams.php">National Teams</a></li>
                 <li><a href="./position.php">Position</a></li>
-                <li><a href="login">Login</a></li>
+                <li><a href="./login.php">Login</a></li>
                 <li><a href="./sign-up.php">Sign up</a></li>
             </ul>
         </nav>

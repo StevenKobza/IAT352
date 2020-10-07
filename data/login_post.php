@@ -1,13 +1,15 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="en">
 
-<html lang = "en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/main.css">
         <title>FIFA 21 — Sign Up</title>
     </head>
+
     <body>
+
         <header class="header">
             <nav>
                 <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
@@ -24,27 +26,23 @@
             </nav>
         </header>
 
+        <div class="main-banner">
+            <h1 class="landing-header">Sign Up</h1>
+        </div>
+
+
         <main>
-            <?php
-            class User {
-                public $email;
-                public $username;
-                public $password;
 
-                function setUp($email, $username, $password) {
-                    $this->email = $email;
-                    $this->username = $username;
-                    $this->password = $password;
-                }
-            }
-            $temp = new User();
-            $temp->setUp($_POST["email"], $_POST["username"], $_POST["password"]);
+            
 
-            $outputFile = fopen("passwords.json", "w+") or die ("Unable to open file");
-            $myJSON = json_encode($temp);
-            fwrite($outputFile, $myJSON);
-            fclose($outputFile);
-            ?>
+
+
         </main>
+
+
+
+
+
     </body>
+
 </html>

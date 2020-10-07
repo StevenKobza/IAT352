@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/main.css">
-        <title>FIFA 21 — Sign Up</title>
+        <title>FIFA 21 — Login</title>
     </head>
 
     <body>
@@ -33,15 +33,15 @@
 
         <main>
 
-            <form action="../data/sign-up_post.php" class="signup" method = "post">
+            <form action="../data/login_post.php" class="login" method = "post">
                 <div class="input-group-1">
                     <input type="text" id="username" name="username" placeholder="Username">
-                    <input type="email" id="email" name="email" placeholder="Email">
+                    <!--<input type="email" id="email" name="email" placeholder="Email">-->
                 </div>
 
                 <div class="input-group-2">
                     <input type="password" id="password" name="password" placeholder="Password">
-                    <input type="password" id="re-password" name="re-password" placeholder="Re-enter your password">
+                    <!--<input type="password" id="re-password" name="re-password" placeholder="Re-enter your password">-->
                 </div>
 
                 <div class="input-group-3">
