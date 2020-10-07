@@ -27,7 +27,7 @@
         </header>
 
         <div class="main-banner">
-            <h1 class="landing-header">Sign Up</h1>
+            <h1 class="landing-header">Log In</h1>
         </div>
 
 

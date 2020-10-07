@@ -39,10 +39,11 @@
             }
             $temp = new User();
             $temp->setUp($_POST["email"], $_POST["username"], $_POST["password"]);
-
-            $outputFile = fopen("passwords.json", "w+") or die ("Unable to open file");
+            
+            $outputFile = fopen("passwords.json", "a+") or die ("Unable to open file");
             $myJSON = json_encode($temp);
             fwrite($outputFile, $myJSON);
+            fwrite($outputFile, ";\n");
             fclose($outputFile);
             ?>
         </main>
