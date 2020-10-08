@@ -65,7 +65,7 @@
                     <h3>21</h3>
                 </div>
                 <div>
-                    <h2>Preffered Foot</h2>
+                    <h2>Preferred Foot</h2>
                     <h3>Right</h3>
                 </div>
                 <div>
