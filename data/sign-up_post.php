@@ -43,7 +43,7 @@
                 echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 
-            if (!($stmt = $mysqli->prepare("INSERT INTO test(id) VALUES (?)"))) {
+            if (!($stmt = $mysqli->prepare("INSERT INTO users(username, password, email) VALUES (?, ?, ?)"))) {
                 echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 
