@@ -32,32 +32,28 @@
 
 
         <main>
-        
-            <?php
-            class User {
-                public $email;
-                public $username;
-                public $password;
 
-                function setUp($email, $username, $password) {
-                    $this->email = $email;
-                    $this->username = $username;
-                    $this->password = $password;
-                }
+            <?php
+
+            include("../phpData/logins.php");
+            $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+            if ($mysqli->connect_errno) {
+                echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
             }
-            $handle = fopen("passwords.json", "r");
-            $contents = fread($handle, 1000);
-            $userArray = explode(";", $contents);
-            for ($i = 0; $i < count($userArray) -1; $i++) {
-                $tempUN = $_POST["username"];
-                $tempPW = $_POST["password"];
-                if ($tempUN === json_decode($userArray[$i])->username && $tempPW === json_decode($userArray[$i])->password) {
-                    echo "Logged in";
-                }
-            }
-            //$tempJson = json_decode($contents);
             
-            //var_dump(json_decode($contents));
+            $result = $mysqli->query("SELECT * FROM users");
+            if ($result->num_rows > 0)
+
+                while ($row = $result->fetch_assoc()) {
+                    if ($_POST["password"] = $row["password"]) {
+                        echo "logged in";
+                    }
+                }
+
+
+                //$tempUN = $_POST["username"];
+                //$tempPW = $_POST["password"];
+               
             ?>
 
 

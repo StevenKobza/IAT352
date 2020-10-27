@@ -39,33 +39,22 @@
                 email VARCHAR(128) NOT NULL
             )";
 
-            if (!$mysqli->query("DROP TABLE IF EXISTS users") || !$mysqli->query($createUserQuery)) {
-                echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            if (!$mysqli->query("SELECT * FROM users")) {
+                if (!$mysqli->query("DROP TABLE IF EXISTS users") || !$mysqli->query($createUserQuery)) {
+                    echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+                }
             }
-
             if (!($stmt = $mysqli->prepare("INSERT INTO users(username, password, email) VALUES (?, ?, ?)"))) {
                 echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 
-            class User {
-                public $email;
-                public $username;
-                public $password;
+            $stmt->bind_param("sss", $username, $password, $email);
 
-                function setUp($email, $username, $password) {
-                    $this->email = $email;
-                    $this->username = $username;
-                    $this->password = $password;
-                }
-            }
-            $temp = new User();
-            $temp->setUp($_POST["email"], $_POST["username"], $_POST["password"]);
+            $username = $_POST["username"];
+            $password = $_POST["password"];
+            $email = $_POST["email"];
+            $stmt->execute();
             
-            $outputFile = fopen("passwords.json", "a+") or die ("Unable to open file");
-            $myJSON = json_encode($temp);
-            fwrite($outputFile, $myJSON);
-            fwrite($outputFile, ";\n");
-            fclose($outputFile);
             ?>
         </main>
     </body>
