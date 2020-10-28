@@ -49,6 +49,10 @@ function addPlayers() {
     )";
 
 
+    $createImagesQuery = "CREATE TABLE images (
+        player_id int(6) NOT NULL,
+        image_url VARCHAR(255) NOT NULL)";
+
 
     $createFavouritePlayersQuery;
 
