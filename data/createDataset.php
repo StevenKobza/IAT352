@@ -2,10 +2,16 @@
 function addPlayers() {
     set_include_path(".:/opt/lampp/htdocs/dev/p1");
     include("./phpData/logins.php");
+    //$mysqli = new mysqli($dbhost, $dbuser, $dbpass);
+    
+
     $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+    
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
     }
+
+    
                 
     $createPlayerQuery = "CREATE TABLE player (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -48,8 +54,6 @@ function addPlayers() {
         if (!$mysqli->query("DROP TABLE IF EXISTS player") || !$mysqli->query($createPlayerQuery)) {
             echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
-    }
-    if ($mysqli->query("SELECT * FROM player")->num_row = 0) {
         if (!($playerStmt = $mysqli->prepare("INSERT INTO player(playerName, position,
             club, league, pace, shooting, passing, dribbling, defense, physical,
             cardRating, weakFoot, skillMoves, workRates, strongFoot) VALUES (?, ?,
