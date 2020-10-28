@@ -2,13 +2,17 @@
 function addPlayers() {
     set_include_path(".:/opt/lampp/htdocs/dev/p1");
     include("./phpData/logins.php");
-    //$mysqli = new mysqli($dbhost, $dbuser, $dbpass);
-    
-
-    $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-    
+    $mysqli = new mysqli($dbhost, $dbuser, $dbpass);
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
+    }
+
+    if(!$mysqli->select_db("fifa2021")) {
+        $sql = "CREATE DATABASE fifa2021";
+
+        if ($mysqli->query($sql) != FALSE) {
+            $mysqli->select_db("fifa2021");
+        }
     }
 
     
@@ -49,8 +53,6 @@ function addPlayers() {
     $createFavouritePlayersQuery;
 
     $file = fopen("./dataset/archive/players.csv", "r", 1);
-    if (!$mysqli->query("SELECT * FROM player"))
-    {
         if (!$mysqli->query("DROP TABLE IF EXISTS player") || !$mysqli->query($createPlayerQuery)) {
             echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -94,7 +96,6 @@ function addPlayers() {
         }
 
         
-    }
     fclose($file);
     
 
