@@ -57,7 +57,7 @@ function addPlayers() {
     $createFavouritePlayersQuery;
 
     $file = fopen("./dataset/archive/players.csv", "r", 1);
-        if (!$mysqli->query("DROP TABLE IF EXISTS player") || !$mysqli->query($createPlayerQuery)) {
+        /*if (!$mysqli->query("DROP TABLE IF EXISTS player") || !$mysqli->query($createPlayerQuery)) {
             echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         if (!($playerStmt = $mysqli->prepare("INSERT INTO player(playerName, position,
@@ -97,7 +97,7 @@ function addPlayers() {
             $workRates = $data[13];
             $strongFoot = $data[14];
             $playerStmt->execute();
-        }
+        }*/
 
         
     fclose($file);
