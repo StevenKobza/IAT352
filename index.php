@@ -123,6 +123,7 @@ if (mysqli_connect_errno()) {
                         ?>
                     </select>
                 </fieldset>
+                <input type = "submit">
             </form>
 
         </div>
@@ -142,12 +143,53 @@ if (mysqli_connect_errno()) {
             </thead>
             <tbody>
                 <?php
-                    $query = "SELECT * FROM player LIMIT 10";
+                    $query = "SELECT * FROM player";
+                    $somethingSet = false;
+                    if (isset($_POST["strongFoot"])) {
+                        if ($_POST["strongFoot"] != "") {
+                            if ($somethingSet == true) {
+                                $query .= " AND ";
+                            } else if ($somethingSet == false) {
+                                $query .= " where ";
+                                $somethingSet = true;
+                            }
+                            $temp = $_POST["strongFoot"];
+                            $temp = "\"$temp\"";
+                            $query .= "strongFoot = " . $temp;
+                        }
+                    }
+                    if (isset($_POST["workRate"])) {
+                        if ($_POST["workRate"] != "") {
+                            if ($somethingSet == true) {
+                                $query .= " AND ";
+                            } else if ($somethingSet == false) {
+                                $query .= " where ";
+                                $somethingSet = true;
+                            }
+                            $temp = $_POST["workRate"];
+                            $temp = "\"$temp\"";
+                            $query .= "workRates = " . $temp;
+                        }
+                    }
+                    if (isset($_POST["position"])) {
+                        if ($_POST["position"] != "") {
+                            if ($somethingSet == true) {
+                                $query .= " AND ";
+                            } else if ($somethingSet == false) {
+                                $query .= " where ";
+                                $somethingSet = true;
+                            }
+                            $temp = $_POST["position"];
+                            $temp = "\"$temp\"";
+                            $query .= "position = " . $temp;
+                        }
+                    }
+                    $query .= " LIMIT 10";
                     $result = $connection->query($query);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
-                            echo '<th scope = "row"><img src = "./img/'. $row["id"] . '.png" alt = ""></th>';
+                            echo '<th scope = "row"><img src = "./img/datasetHeads/'. $row["id"] . '.jpg" alt = ""></th>';
                             echo '<td><a href = ./pages/player.php">' . $row["playerName"] . "</a></td>";
                             echo '<td>'. $row["cardRating"] . "</td>";
                             echo "<td>" . $row["position"] . "</td>";
