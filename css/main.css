@@ -319,6 +319,20 @@ input:focus {
   margin-bottom: 1em;
 }
 
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+fieldset {
+  border: none;
+}
+
 ::-webkit-input-placeholder {
   color: #999999;
 }
