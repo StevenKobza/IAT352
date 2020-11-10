@@ -308,6 +308,15 @@ input:focus {
     margin-bottom: 1em;
 }
 
+form {
+    display: flex;
+    flex-direction: row;
+}
+
+fieldset {
+    border: none;
+}
+
 
 ::placeholder {
     color: #999999;

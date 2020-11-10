@@ -3,8 +3,6 @@
 session_start();
 
 if (!isset($_SESSION["started"])) {
-    include("data/createDataset.php");
-    addPlayers();
     $_SESSION["started"] = "true";
 }
 
@@ -50,7 +48,7 @@ if (mysqli_connect_errno()) {
                 <?php
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "#">' . $_SESSION["username"] . '</a></li>';
-                    echo '<li> <a href = "#"> Sign out </a> </li>';
+                    echo '<li> <a href = "./data/log_out_post.php">Log Out</a></li>';
                 } else {
                     echo '<li><a href="./pages/login.php">Login</a></li>';
                     echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
@@ -77,50 +75,54 @@ if (mysqli_connect_errno()) {
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
 
             ?>
-            <form action="#" class="position">
-                <label for="position">Position</label>
-                <select name="position" id="position">
+            <form action = "" class = "filterForm" method = "post">
+                <fieldset class="position">
+                    <label for="position">Position</label>
+                    <select name="position" id="position">
+                        <option value = "">Select One</option>
+                        <?php
+                        while ($rows = $positionResult->fetch_assoc()) {
+                            $order_number = $rows['position'];
+                            echo "<option value='$order_number'" . $selected;
+                            echo ">";
+                            echo $order_number;
+                            echo "</option>";
+                        }
+                        ?>
+                    </select>
+                </fieldset>
 
-                    <?php
-                    while ($rows = $positionResult->fetch_assoc()) {
-                        $order_number = $rows['position'];
-                        echo "<option value='$order_number'" . $selected;
-                        echo ">";
-                        echo $order_number;
-                        echo "</option>";
-                    }
-                    ?>
-                </select>
-            </form>
+                <fieldset class="workRate">
+                    <label for="workRate">Work Rate</label>
+                    <select name="workRate" id="workRate">
+                        <option value = "">Select One</option>
+                        <?php
+                        while ($rows = $workRateResult->fetch_assoc()) {
+                            $order_number = $rows['workRates'];
+                            echo "<option value='$order_number'" . $selected;
+                            echo ">";
+                            echo $order_number;
+                            echo "</option>";
+                        }
+                        ?>
+                    </select>
+                </fieldset>
 
-            <form action="#" class="workRate">
-                <label for="workRate">Work Rate</label>
-                <select name="workRate" id="workRate">
-                    <?php
-                    while ($rows = $workRateResult->fetch_assoc()) {
-                        $order_number = $rows['workRates'];
-                        echo "<option value='$order_number'" . $selected;
-                        echo ">";
-                        echo $order_number;
-                        echo "</option>";
-                    }
-                    ?>
-                </select>
-            </form>
-
-            <form action="#" class="strongFoot">
-                <label for="strongFoot">Strong Foot</label>
-                <select name="strongFoot" id="strongFoot">
-                    <?php
-                    while ($rows = $strongFootResult->fetch_assoc()) {
-                        $order_number = $rows['strongFoot'];
-                        echo "<option value='$order_number'" . $selected;
-                        echo ">";
-                        echo $order_number;
-                        echo "</option>";
-                    }
-                    ?>
-                </select>
+                <fieldset class="strongFoot">
+                    <label for="strongFoot">Strong Foot</label>
+                    <select name="strongFoot" id="strongFoot">
+                        <option value = "">Select One</option>
+                        <?php
+                        while ($rows = $strongFootResult->fetch_assoc()) {
+                            $order_number = $rows['strongFoot'];
+                            echo "<option value='$order_number'" . $selected;
+                            echo ">";
+                            echo $order_number;
+                            echo "</option>";
+                        }
+                        ?>
+                    </select>
+                </fieldset>
             </form>
 
         </div>
@@ -139,7 +141,24 @@ if (mysqli_connect_errno()) {
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <?php
+                    $query = "SELECT * FROM player LIMIT 10";
+                    $result = $connection->query($query);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo '<th scope = "row"><img src = "./img/'. $row["id"] . '.png" alt = ""></th>';
+                            echo '<td><a href = ./pages/player.php">' . $row["playerName"] . "</a></td>";
+                            echo '<td>'. $row["cardRating"] . "</td>";
+                            echo "<td>" . $row["position"] . "</td>";
+                            echo "<td>" . $row["club"] . "</td>";
+                            echo "<td>" . $row["workRates"] . "</td>";
+                            echo "<td>" . $row["strongFoot"] . "</td>";
+                            echo "</tr>";
+                        }
+                    }
+                    ?>
+                <!--<tr>
                     <th scope="row"><img src="./img/1.png" alt=""></th>
                     <td><a href="./pages/player.php">K. Mbappé</a></td>
                     <td>98</td>
@@ -183,7 +202,7 @@ if (mysqli_connect_errno()) {
                     <td>Liverpool</td>
                     <td>High/High</td>
                     <td>Right</td>
-                </tr>
+                </tr>-->
 
 
             </tbody>
