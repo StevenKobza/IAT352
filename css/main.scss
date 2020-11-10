@@ -27,8 +27,8 @@ img {
 }
 
 .filter {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+   display: flex;
+   gap: 2rem;
 }
 
 th {
@@ -321,6 +321,8 @@ label {
 .profile {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+
 
     img {
         width: 120px;
@@ -338,9 +340,8 @@ label {
     flex-direction: column;
     margin-left: 1em;
 
-    img {
-        width: 2em;
-        height: 2em;
+    h2 {
+        font-size: 3rem;
     }
 }
 

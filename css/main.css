@@ -28,10 +28,10 @@ img {
 }
 
 .filter {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(8rem, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
 }
 
 th {
@@ -345,6 +345,10 @@ label {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .profile img {
@@ -370,9 +374,8 @@ label {
   margin-left: 1em;
 }
 
-.general-info img {
-  width: 2em;
-  height: 2em;
+.general-info h2 {
+  font-size: 3rem;
 }
 
 .short-info {

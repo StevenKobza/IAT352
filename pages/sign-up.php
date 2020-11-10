@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<?php 
-
-session_start();
-
-if (!isset($_SESSION["started"])) {
-    $_SESSION["started"] = "true";
-}
-?>
-
 <html lang="en">
 
     <head>
@@ -25,20 +16,12 @@ if (!isset($_SESSION["started"])) {
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
                 <ul class="menu">
-                    <li><a href="../index.php">Players</a></li>
-                    <li><a href="./clubs.php">Clubs</a></li>
-                    <li><a href="./national-teams.php">National Teams</a></li>
-                    <li><a href="./position.php">Position</a></li>
-                    <?php
-                    if (isset($_SESSION["username"])) {
-                        echo '<li> <a href = "#">' . $_SESSION["username"] . '</a></li>';
-                        echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
-                    } else {
-                        echo '<li><a href="../pages/login.php">Login</a></li>';
-                        echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
-
-                    }
-                ?>
+                <li><a href="../index.php">Players</a></li>
+                <li><a href="./clubs.php">Clubs</a></li>
+                <li><a href="./leagues.php">Leagues</a></li>
+                <li><a href="./position.php">Position</a></li>
+                <li><a href="./login.php">Login</a></li>
+                <li><a href="./sign-up.php">Sign up</a></li>
                 </ul>
             </nav>
         </header>
