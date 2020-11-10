@@ -3,8 +3,6 @@
 session_start();
 
 if (!isset($_SESSION["started"])) {
-    include ("data/createDataset.php");
-    addPlayers();
     $_SESSION["started"] = "true";
 }
 
@@ -38,8 +36,6 @@ if (!isset($_SESSION["started"])) {
                         echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
 
                     }
-                
-                
                 ?>
             </ul>
         </nav>
