@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <?php 
 
 session_start();
@@ -8,15 +8,20 @@ if (!isset($_SESSION["started"])) {
 }
 ?>
 
+<html lang="en">
 
-<html lang = "en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/main.css">
-        <title>FIFA 21 — Sign Up</title>
+        <title>FIFA 21 — Log Out</title>
     </head>
+
     <body>
+    <?php
+
+        unset($_SESSION["username"]);
+    ?>
         <header class="header">
             <nav>
                 <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
@@ -41,38 +46,24 @@ if (!isset($_SESSION["started"])) {
             </nav>
         </header>
 
+        <div class="main-banner">
+            <h1 class="landing-header">Logged Out</h1>
+        </div>
+
+
         <main>
-            <?php
-            include("../phpData/logins.php");
-            $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-            if ($mysqli->connect_errno) {
-                echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
-            }
+
             
-            $createUserQuery = "CREATE TABLE users (
-                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(30) NOT NULL,
-                password CHAR(128) NOT NULL,
-                email VARCHAR(128) NOT NULL
-            )";
 
-            if (!$mysqli->query("SELECT * FROM users")) {
-                if (!$mysqli->query("DROP TABLE IF EXISTS users") || !$mysqli->query($createUserQuery)) {
-                    echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
-                }
-            }
-            if (!($stmt = $mysqli->prepare("INSERT INTO users(username, password, email) VALUES (?, ?, ?)"))) {
-                echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-            }
 
-            $stmt->bind_param("sss", $username, $password, $email);
 
-            $username = $_POST["username"];
-            $password = $_POST["password"];
-            $email = $_POST["email"];
-            $stmt->execute();
-            
-            ?>
+
         </main>
+
+
+
+
+
     </body>
+
 </html>

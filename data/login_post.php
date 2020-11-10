@@ -18,7 +18,29 @@ if (!isset($_SESSION["started"])) {
     </head>
 
     <body>
+    <?php
 
+        include("../phpData/logins.php");
+        $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
+        }
+
+        $result = $mysqli->query("SELECT * FROM users");
+        if ($result->num_rows > 0)
+
+            while ($row = $result->fetch_assoc()) {
+                if ($_POST["password"] = $row["password"]) {
+                    //echo "logged in";
+                    $_SESSION["username"] = $_POST["username"];
+                }
+            }
+
+
+            //$tempUN = $_POST["username"];
+            //$tempPW = $_POST["password"];
+    
+    ?>
         <header class="header">
             <nav>
                 <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
@@ -32,9 +54,10 @@ if (!isset($_SESSION["started"])) {
                     <?php
                     if (isset($_SESSION["username"])) {
                         echo '<li> <a href = "#">' . $_SESSION["username"] . '</a></li>';
+                        echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
                     } else {
-                        echo '<li><a href="./pages/login.php">Login</a></li>';
-                        echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
+                        echo '<li><a href="../pages/login.php">Login</a></li>';
+                        echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
 
                     }
                 ?>
@@ -48,30 +71,12 @@ if (!isset($_SESSION["started"])) {
 
 
         <main>
-
             <?php
-
-            include("../phpData/logins.php");
-            $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-            if ($mysqli->connect_errno) {
-                echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
+            if (isset($_SESSION["username"])) {
+                echo "logged in";
             }
-            
-            $result = $mysqli->query("SELECT * FROM users");
-            if ($result->num_rows > 0)
-
-                while ($row = $result->fetch_assoc()) {
-                    if ($_POST["password"] = $row["password"]) {
-                        echo "logged in";
-                        $_SESSION["username"] = $_POST["username"];
-                    }
-                }
-
-
-                //$tempUN = $_POST["username"];
-                //$tempPW = $_POST["password"];
-               
             ?>
+            
 
 
 

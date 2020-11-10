@@ -32,9 +32,10 @@ if (!isset($_SESSION["started"])) {
                 <?php
                     if (isset($_SESSION["username"])) {
                         echo '<li> <a href = "#">' . $_SESSION["username"] . '</a></li>';
+                        echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
                     } else {
-                        echo '<li><a href="./pages/login.php">Login</a></li>';
-                        echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
+                        echo '<li><a href="../pages/login.php">Login</a></li>';
+                        echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
 
                     }
                 ?>
