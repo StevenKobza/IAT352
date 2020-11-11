@@ -47,7 +47,7 @@ if (mysqli_connect_errno()) {
                 <li><a href="./pages/position.php">Position</a></li>
                 <?php
                 if (isset($_SESSION["username"])) {
-                    echo '<li> <a href = "#">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "./data/log_out_post.php">Log Out</a></li>';
                 } else {
                     echo '<li><a href="./pages/login.php">Login</a></li>';
@@ -82,10 +82,10 @@ if (mysqli_connect_errno()) {
                         <option value = "">Select One</option>
                         <?php
                         while ($rows = $positionResult->fetch_assoc()) {
-                            $order_number = $rows['position'];
-                            echo "<option value='$order_number'" . $selected;
+                            $position = $rows['position'];
+                            echo "<option value='$position'" . $selected;
                             echo ">";
-                            echo $order_number;
+                            echo $position;
                             echo "</option>";
                         }
                         ?>
@@ -98,10 +98,10 @@ if (mysqli_connect_errno()) {
                         <option value = "">Select One</option>
                         <?php
                         while ($rows = $workRateResult->fetch_assoc()) {
-                            $order_number = $rows['workRates'];
-                            echo "<option value='$order_number'" . $selected;
+                            $workRate = $rows['workRates'];
+                            echo "<option value='$workRate'" . $selected;
                             echo ">";
-                            echo $order_number;
+                            echo $workRate;
                             echo "</option>";
                         }
                         ?>
@@ -114,10 +114,10 @@ if (mysqli_connect_errno()) {
                         <option value = "">Select One</option>
                         <?php
                         while ($rows = $strongFootResult->fetch_assoc()) {
-                            $order_number = $rows['strongFoot'];
-                            echo "<option value='$order_number'" . $selected;
+                            $strongFoot = $rows['strongFoot'];
+                            echo "<option value='$strongFoot'" . $selected;
                             echo ">";
-                            echo $order_number;
+                            echo $strongFoot;
                             echo "</option>";
                         }
                         ?>
@@ -190,7 +190,7 @@ if (mysqli_connect_errno()) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo '<th scope = "row"><img src = "./img/datasetHeads/'. $row["id"] . '.jpg" alt = ""></th>';
-                            echo '<td><a href = ./pages/player.php">' . $row["playerName"] . "</a></td>";
+                            echo "<td> <a href='./pages/player.php?id=".$row['playerName']."'>".$row['playerName']."</a></td>";
                             echo '<td>'. $row["cardRating"] . "</td>";
                             echo "<td>" . $row["position"] . "</td>";
                             echo "<td>" . $row["club"] . "</td>";
@@ -200,53 +200,6 @@ if (mysqli_connect_errno()) {
                         }
                     }
                     ?>
-                <!--<tr>
-                    <th scope="row"><img src="./img/1.png" alt=""></th>
-                    <td><a href="./pages/player.php">K. Mbappé</a></td>
-                    <td>98</td>
-                    <td>ST</td>
-                    <td>Paris Saint-Germain</td>
-                    <td>High/Low</td>
-                    <td>Right</td>
-                </tr>
-                <tr>
-                    <th scope="row"><img src="./img/2.png" alt=""></th>
-                    <td>João Félix</td>
-                    <td>94</td>
-                    <td>CF</td>
-                    <td>Atletico de Madrid</td>
-                    <td>High/Medium</td>
-                    <td>Right</td>
-                </tr>
-                <tr>
-                    <th scope="row"><img src="./img/3.png" alt=""></th>
-                    <td>Vinícius Jr.</td>
-                    <td>95</td>
-                    <td>LW</td>
-                    <td>Real Madrid</td>
-                    <td>High/Medium</td>
-                    <td>Right</td>
-                </tr>
-                <tr>
-                    <th scope="row"><img src="./img/10.png" alt=""></th>
-                    <td>M. de Ligt</td>
-                    <td>96</td>
-                    <td>CB</td>
-                    <td>Pimeonte Calcio</td>
-                    <td>Medium/High</td>
-                    <td>Right</td>
-                </tr>
-                <tr>
-                    <th scope="row"><img src="./img/11.png" alt=""></th>
-                    <td>T. Alexander-Arnold</td>
-                    <td>95</td>
-                    <td>RB</td>
-                    <td>Liverpool</td>
-                    <td>High/High</td>
-                    <td>Right</td>
-                </tr>-->
-
-
             </tbody>
         </table>
 

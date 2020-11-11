@@ -6,7 +6,26 @@ session_start();
 if (!isset($_SESSION["started"])) {
     $_SESSION["started"] = "true";
 }
+
+// database connection
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname = "fifa2021";
+
+$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+// test if connection succeeded 
+if (mysqli_connect_errno()) {
+    // if connection failed, skip the rest of the code and print an error 
+    die("Database connection failed: " .
+        mysqli_connect_error() .
+        " (" . mysqli_connect_errno() . ")");
+}
+
 ?>
+
+
 <html lang="en">
 
 <head>
@@ -29,14 +48,13 @@ if (!isset($_SESSION["started"])) {
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
-                    if (isset($_SESSION["username"])) {
-                        echo '<li> <a href = "#">' . $_SESSION["username"] . '</a></li>';
-                        echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
-                    } else {
-                        echo '<li><a href="../pages/login.php">Login</a></li>';
-                        echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
-
-                    }
+                if (isset($_SESSION["username"])) {
+                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
+                } else {
+                    echo '<li><a href="../pages/login.php">Login</a></li>';
+                    echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
+                }
                 ?>
             </ul>
         </nav>
@@ -49,6 +67,37 @@ if (!isset($_SESSION["started"])) {
 
     <main>
 
+        <div class="position-icons-container">
+            <div class="forward-icon">Forward</div>
+            <div class="midfield-icon">Midfield</div>
+            <div class="defence-icon">Defence</div>
+        </div>
+
+
+
+        <?php
+        $defencePositions = array("LB", "CB", "RB", "LWB", "RWB");
+        $midfieldPositions = array("CM", "CAM", "CDM", "LM", "RM");
+        $forwardPositions = array("ST", "RW", "LW", "CF", "RF", "LF");
+
+        $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
+        echo '<div class="position-container">';
+        while ($rows = $positionResult->fetch_assoc()) {
+            $position = trim($rows['position'], " ");       // removing extra space before position name
+
+            echo '<div class="position-box"';
+
+            if (in_array($position, $defencePositions)) {          // check if poisiton is defence
+                echo ' id="defence" >';
+            } else if (in_array($position, $midfieldPositions)) {     // check if position is midfield
+                echo ' id="midfield" >';
+            } else {                                                  // position is forward
+                echo ' id="forward" >';
+            }
+            echo $position . '</div>';
+        }
+        echo '</div>';
+        ?>
 
 
 
