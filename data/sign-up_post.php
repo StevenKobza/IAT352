@@ -32,14 +32,14 @@
                 echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
             }
             
-            if (!($stmt = $mysqli->prepare("INSERT INTO users(username, email, password) VALUES (?, ?, ?)"))) {
+            if (!($stmt = $mysqli->prepare("INSERT INTO user(username, email, password) VALUES (?, ?, ?)"))) {
                 echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 
             $stmt->bind_param("sss", $username, $email, $password);
 
             $username = $_POST["username"];
-            $password = $_POST["password"];
+            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $email = $_POST["email"];
             $stmt->execute();
             

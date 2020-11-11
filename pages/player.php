@@ -10,6 +10,9 @@ if (!isset($_SESSION["started"])) {
 // get player's name from the URL
 $playerId = str_replace("/dev/IAT352/pages/player.php?id=", "", $_SERVER['REQUEST_URI']);
 $playerId = urldecode($playerId);
+//Exploding here
+$tempPlayerId = explode("id=", $playerId);
+$playerId = $tempPlayerId[1];
 
 // database connection
 include("../phpData/dbconnect.php");
@@ -26,10 +29,17 @@ if (mysqli_connect_errno()) {
 
 
 // queries
-$sql_basic = "SELECT club, playerName FROM player WHERE id='$playerId'";
-$query_basic = mysqli_query($connection, $sql_basic) or die("Bad Query: $sql_basic");
+$sql_basic = "SELECT club.clubname, player.playerName FROM player 
+INNER JOIN club ON player.playerid = club.playerid WHERE player.playerid=$playerId";
+if ($query_basic = $connection->query($sql_basic)) {
+
+} else {
+    echo $connection->errno;
+    echo $connection->error;
+}
+//$query_basic = mysqli_query($connection, $sql_basic) or die("Bad Query: $sql_basic");
 $row_basic = mysqli_fetch_assoc($query_basic);
-$club =  $row_basic['club'];
+$club =  $row_basic['clubname'];
 $playerName = $row_basic['playerName'];
 ?>
 
@@ -88,7 +98,7 @@ $playerName = $row_basic['playerName'];
             <div class="general-stats">
 
                 <?php
-                $sql_general = "SELECT cardRating, position, workRates, strongFoot FROM player WHERE id='$playerId'";
+                $sql_general = "SELECT cardRating, position, workRates, strongFoot FROM player WHERE playerid='$playerId'";
                 $query_general = mysqli_query($connection, $sql_general) or die("Bad Query: $sql_general");
 
                 while ($rows = $query_general->fetch_assoc()) {
@@ -131,7 +141,7 @@ $playerName = $row_basic['playerName'];
         <div class="specific-stats">
 
             <?php
-            $sql_specific = "SELECT pace, shooting, passing, dribbling, defense, physical, weakFoot, skillMoves FROM player WHERE id='$playerId'";
+            $sql_specific = "SELECT pace, shooting, passing, dribbling, defense, physical, weakFoot, skillMoves FROM player WHERE playerid='$playerId'";
             $query_specific = mysqli_query($connection, $sql_specific) or die("Bad Query: $sql_specific");
 
             while ($rows = $query_specific->fetch_assoc()) {

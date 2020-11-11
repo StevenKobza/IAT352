@@ -19,27 +19,7 @@ if (!isset($_SESSION["started"])) {
     
 
     <body>
-    <?php
-
-        include("../phpData/dbconnect.php");
-        $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
-        }
-
-        $result = $mysqli->query("SELECT * FROM users");
-        if ($result->num_rows > 0) {
-
-            while ($row = $result->fetch_assoc()) {
-                if ($_POST["password"] = $row["password"]) {
-                    if(isset($_POST["username"])) {
-                    $_SESSION["username"] = $_POST["username"];
-                    }
-                }
-            }
-        }
-        
-    ?>
+    
 
         <header class="header">
             <nav>
@@ -73,7 +53,32 @@ if (!isset($_SESSION["started"])) {
         <main>
 
             
+        <?php
 
+        include("../phpData/dbconnect.php");
+        $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
+        }
+
+        $result = $mysqli->query("SELECT * FROM user");
+        if ($result->num_rows > 0) {
+            $temp = false;
+            while ($row = $result->fetch_assoc()) {
+                if (password_verify($_POST["password"], $row["password"]) && $_POST["username"] == $row["username"]) {
+                    if(isset($_POST["username"])) {
+                    $_SESSION["username"] = $_POST["username"];
+                    $temp = true;
+                    break;
+                    }
+                }
+            }
+            if ($temp == false) {
+                echo "Your password or username is incorrect";
+            }
+        }
+
+        ?>
 
 
 

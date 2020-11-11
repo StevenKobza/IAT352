@@ -65,13 +65,13 @@ if (mysqli_connect_errno()) {
         <div class="league-container">
 
         <?php
-        $query = "SELECT DISTINCT league FROM player";
+        $query = "SELECT DISTINCT leaguename FROM league";
         $result = $connection->query($query);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='league-box'>";
-                echo "<h2>" . $row["league"] . "</h2>";
+                echo "<h2>" . $row["leaguename"] . "</h2>";
                 echo "</div>";
             }
         }

@@ -70,13 +70,13 @@ if (mysqli_connect_errno()) {
             <tbody>
 
                 <?php
-                $query = "SELECT DISTINCT club FROM player";
+                $query = "SELECT DISTINCT clubname FROM club";
                 $result = $connection->query($query);
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row["club"] . "</td>";
+                        echo "<td>" . $row["clubname"] . "</td>";
                         echo "</tr>";
                     }
                 }
