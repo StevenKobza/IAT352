@@ -8,11 +8,7 @@ if (!isset($_SESSION["started"])) {
 }
 
 // database connection
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "fifa2021";
-
+include("../phpData/dbconnect.php");
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
 // test if connection succeeded 
@@ -44,17 +40,17 @@ if (mysqli_connect_errno()) {
                 <li><a href="../index.php">Players</a></li>
                 <li><a href="./clubs.php">Clubs</a></li>
                 <li><a href="./leagues.php">Leagues</a></li>
-                <li><a href="./position.php">Position</a></li><?php
-                                                                if (isset($_SESSION["username"])) {
-                                                                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
-                                                                    echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
-                                                                } else {
-                                                                    echo '<li><a href="./login.php">Login</a></li>';
-                                                                    echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
-                                                                }
+                <li><a href="./position.php">Position</a></li>
+                <?php
+                if (isset($_SESSION["username"])) {
+                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
+                } else {
+                    echo '<li><a href="./login.php">Login</a></li>';
+                    echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
+                }
 
-
-                                                                ?>
+                ?>
             </ul>
         </nav>
     </header>
@@ -66,10 +62,23 @@ if (mysqli_connect_errno()) {
 
     <main>
 
+        <div class="league-container">
+
+        <?php
+        $query = "SELECT DISTINCT league FROM player";
+        $result = $connection->query($query);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='league-box'>";
+                echo "<h2>" . $row["league"] . "</h2>";
+                echo "</div>";
+            }
+        }
+        ?>
 
 
-
-
+        </div>
 
 
 

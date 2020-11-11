@@ -26,7 +26,7 @@
 
         <main>
             <?php
-            include("../phpData/logins.php");
+            include("../phpData/dbconnect.php");
             $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
             if ($mysqli->connect_errno) {
                 echo "Failed to connect to MySQL: " . $mysqli->connect_error; 

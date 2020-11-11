@@ -8,14 +8,11 @@ if (!isset($_SESSION["started"])) {
 }
 
 // get player's name from the URL
-$playerName = str_replace("/dev/IAT352-master/pages/player.php?id=", "", $_SERVER['REQUEST_URI']);
-$playerName = urldecode($playerName);
+$playerId = str_replace("/dev/IAT352/pages/player.php?id=", "", $_SERVER['REQUEST_URI']);
+$playerId = urldecode($playerId);
 
 // database connection
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "fifa2021";
+include("../phpData/dbconnect.php");
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -29,11 +26,11 @@ if (mysqli_connect_errno()) {
 
 
 // queries
-$sql_club = "SELECT club, id FROM player WHERE playerName='$playerName'";
-$query_club = mysqli_query($connection, $sql_club) or die("Bad Query: $sql_club");
-$row_club = mysqli_fetch_assoc($query_club);
-$result_club =  $row_club['club'];
-$result_id = $row_club['id'];
+$sql_basic = "SELECT club, playerName FROM player WHERE id='$playerId'";
+$query_basic = mysqli_query($connection, $sql_basic) or die("Bad Query: $sql_basic");
+$row_basic = mysqli_fetch_assoc($query_basic);
+$club =  $row_basic['club'];
+$playerName = $row_basic['playerName'];
 ?>
 
 <html lang="en">
@@ -81,8 +78,8 @@ $result_id = $row_club['id'];
             <div class="profile">
                 <div class="general-info">
                     <h2><?php echo $playerName; ?></h2>
-                    <p>Club: <?php echo $result_club ?></p>
-                    <?php echo '<img src = "../img/datasetHeads/'. $result_id . '.jpg" alt = "">'; ?>
+                    <p>Club: <?php echo $club ?></p>
+                    <?php echo '<img src = "../img/datasetHeads/'. $playerId . '.jpg" alt = "">'; ?>
 
                 </div>
             </div>
@@ -91,7 +88,7 @@ $result_id = $row_club['id'];
             <div class="general-stats">
 
                 <?php
-                $sql_general = "SELECT cardRating, position, workRates, strongFoot FROM player WHERE playerName='$playerName'";
+                $sql_general = "SELECT cardRating, position, workRates, strongFoot FROM player WHERE id='$playerId'";
                 $query_general = mysqli_query($connection, $sql_general) or die("Bad Query: $sql_general");
 
                 while ($rows = $query_general->fetch_assoc()) {
@@ -134,7 +131,7 @@ $result_id = $row_club['id'];
         <div class="specific-stats">
 
             <?php
-            $sql_specific = "SELECT pace, shooting, passing, dribbling, defense, physical, weakFoot, skillMoves FROM player WHERE playerName='$playerName'";
+            $sql_specific = "SELECT pace, shooting, passing, dribbling, defense, physical, weakFoot, skillMoves FROM player WHERE id='$playerId'";
             $query_specific = mysqli_query($connection, $sql_specific) or die("Bad Query: $sql_specific");
 
             while ($rows = $query_specific->fetch_assoc()) {

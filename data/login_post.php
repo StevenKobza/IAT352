@@ -21,14 +21,14 @@ if (!isset($_SESSION["started"])) {
     <body>
     <?php
 
-        include("../phpData/logins.php");
+        include("../phpData/dbconnect.php");
         $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
         if ($mysqli->connect_errno) {
             echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
         }
 
         $result = $mysqli->query("SELECT * FROM users");
-        if ($result->num_rows > 0)
+        if ($result->num_rows > 0) {
 
             while ($row = $result->fetch_assoc()) {
                 if ($_POST["password"] = $row["password"]) {
@@ -37,10 +37,7 @@ if (!isset($_SESSION["started"])) {
                     }
                 }
             }
-
-
-            //$tempUN = $_POST["username"];
-            //$tempPW = $_POST["password"];
+        }
         
     ?>
 

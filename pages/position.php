@@ -8,10 +8,7 @@ if (!isset($_SESSION["started"])) {
 }
 
 // database connection
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "fifa2021";
+include("../phpData/dbconnect.php");
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 

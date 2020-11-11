@@ -7,12 +7,10 @@ if (!isset($_SESSION["started"])) {
 }
 
 // database connection
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "fifa2021";
+include("./phpData/dbconnect.php");
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
 
 // test if connection succeeded 
 if (mysqli_connect_errno()) {
@@ -73,8 +71,8 @@ if (mysqli_connect_errno()) {
             $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
             $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
-
             ?>
+
             <form action="" class="filterForm" method="post">
                 <fieldset class="position">
                     <label for="position">Position</label>
@@ -83,6 +81,10 @@ if (mysqli_connect_errno()) {
                         <?php
                         while ($rows = $positionResult->fetch_assoc()) {
                             $position = $rows['position'];
+                            $selected = '';
+                            if (!empty($_POST['position']) && $_POST['position'] == $position) {
+                                $selected = ' selected="selected"';
+                            }
                             echo "<option value='$position'" . $selected;
                             echo ">";
                             echo $position;
@@ -99,6 +101,10 @@ if (mysqli_connect_errno()) {
                         <?php
                         while ($rows = $workRateResult->fetch_assoc()) {
                             $workRate = $rows['workRates'];
+                            $selected = '';
+                            if (!empty($_POST['workRate']) && $_POST['workRate'] == $workRate) {
+                                $selected = ' selected="selected"';
+                            }
                             echo "<option value='$workRate'" . $selected;
                             echo ">";
                             echo $workRate;
@@ -115,6 +121,10 @@ if (mysqli_connect_errno()) {
                         <?php
                         while ($rows = $strongFootResult->fetch_assoc()) {
                             $strongFoot = $rows['strongFoot'];
+                            $selected = '';
+                            if (!empty($_POST['strongFoot']) && $_POST['strongFoot'] == $strongFoot) {
+                                $selected = ' selected="selected"';
+                            }
                             echo "<option value='$strongFoot'" . $selected;
                             echo ">";
                             echo $strongFoot;
@@ -208,7 +218,7 @@ if (mysqli_connect_errno()) {
 
                 // determine the sql LIMIT starting number for the results on the displaying page
                 $this_page_first_result = ($page - 1) * $results_per_page;
-                
+
                 $query .= " LIMIT " . $this_page_first_result . ',' . $results_per_page;
                 $result = $connection->query($query);
 
@@ -219,7 +229,7 @@ if (mysqli_connect_errno()) {
                         echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["id"] . '.jpg" alt = ""></th>';
 
                         // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
-                        echo "<td> <a href='./pages/player.php?id=" . $row['playerName'] . "'>" . $row['playerName'] . "</a></td>";
+                        echo "<td> <a href='./pages/player.php?id=" . $row['id'] . "'>" . $row['playerName'] . "</a></td>";
                         echo '<td>' . $row["cardRating"] . "</td>";
                         echo "<td>" . $row["position"] . "</td>";
                         echo "<td>" . $row["club"] . "</td>";
@@ -238,23 +248,24 @@ if (mysqli_connect_errno()) {
         $link = "";
         $limit = 5;
 
-        if ($number_of_pages >=1 && $page <= $number_of_pages)
-        {
+        if ($number_of_pages >= 1 && $page <= $number_of_pages) {
             $counter = 1;
             $link = "";
             if ($page > 1)         // show 1 if on page 2 and after
-               { $link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";}
-            for ($x=$page; $x<=$number_of_pages;$x++)
             {
-                if($counter < $limit)
-                    $link .= "<a class='pagination' href=\"?page=" .$x."\">".$x." </a>";
-    
+                $link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
+            }
+            for ($x = $page; $x <= $number_of_pages; $x++) {
+                if ($counter < $limit)
+                    $link .= "<a class='pagination' href=\"?page=" . $x . "\">" . $x . " </a>";
+
                 $counter++;
             }
-            if ($page < $number_of_pages - ($limit/2))
-             { $link .= "... " . "<a class='pagination' href=\"?page=" .$number_of_pages."\">".$number_of_pages." </a>"; }
+            if ($page < $number_of_pages - ($limit / 2)) {
+                $link .= "... " . "<a class='pagination' href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
+            }
         }
-    
+
         echo $link;
         ?>
 

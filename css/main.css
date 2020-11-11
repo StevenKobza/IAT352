@@ -56,6 +56,7 @@ tr {
 td {
   text-align: center;
   font-weight: 300;
+  height: 4rem;
 }
 
 td > img {
@@ -415,6 +416,36 @@ label {
   color: #8f8f8f;
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.league-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(50%, 29rem))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(50%, 29rem));
+  row-gap: 1rem;
+  -webkit-column-gap: 1rem;
+          column-gap: 1rem;
+}
+
+.league-box {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  background-color: slateblue;
+  color: white;
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.league-box h2 {
+  font-size: 1.2rem;
+}
+
+.league-box:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  background-color: #9a8c98;
 }
 
 #forward {
