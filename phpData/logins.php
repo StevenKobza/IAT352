@@ -2,5 +2,5 @@
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "";
-$dbname = "fifa2021";
+$dbname = "STEVEN_KOBZA";
 ?>

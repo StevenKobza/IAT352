@@ -1,19 +1,19 @@
 <?php
 function addPlayers() {
     set_include_path(".:/opt/lampp/htdocs/dev/p1");
-    include("./phpData/logins.php");
-    $mysqli = new mysqli($dbhost, $dbuser, $dbpass);
+    include("../phpData/logins.php");
+    $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
     }
 
-    if(!$mysqli->select_db("fifa2021")) {
+    /*if(!$mysqli->select_db("fifa2021")) {
         $sql = "CREATE DATABASE fifa2021";
 
         if ($mysqli->query($sql) != FALSE) {
             $mysqli->select_db("fifa2021");
         }
-    }
+    }*/
 
     
                 
@@ -38,14 +38,13 @@ function addPlayers() {
 
     $createClubQuery = "CREATE TABLE club (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        clubName VARCHAR(128) NOT NULL,
+        clubName VARCHAR(128) NOT NULL UNIQUE,
         league VARCHAR(128) NOT NULL
     )";
 
     $createPlaysForQuery = "CREATE TABLE playsFor (
         playerName VARCHAR(128) NOT NULL PRIMARY KEY,
-        player_id INT(6) NOT NULL,
-        club_id INT(6) NOT NULL
+        clubName VARCHAR(128) NOT NULL
     )";
 
 
@@ -56,10 +55,17 @@ function addPlayers() {
 
     $createFavouritePlayersQuery;
 
-    $file = fopen("./dataset/archive/players.csv", "r", 1);
-        /*if (!$mysqli->query("DROP TABLE IF EXISTS player") || !$mysqli->query($createPlayerQuery)) {
+    $file = fopen("../dataset/archive/players.csv", "r", 1);
+        if (!$mysqli->query("DROP TABLE IF EXISTS player") || !$mysqli->query($createPlayerQuery)) {
             echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
+        if (!$mysqli->query("DROP TABLE IF EXISTS club") || !$mysqli->query($createClubQuery)) {
+            echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        if (!$mysqli->query("DROP TABLE IF EXISTS playsFor") || !$mysqli->query($createPlaysForQuery)) {
+            echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+
         if (!($playerStmt = $mysqli->prepare("INSERT INTO player(playerName, position,
             club, league, pace, shooting, passing, dribbling, defense, physical,
             cardRating, weakFoot, skillMoves, workRates, strongFoot) VALUES (?, ?,
@@ -69,6 +75,16 @@ function addPlayers() {
             $playerStmt->bind_param("ssssiiiiiiiiiss", $playerName, $position, $club,
         $league, $pace, $shooting, $passing, $dribbing, $defense, $physical,
         $cardRating, $weakFoot, $skillMoves, $workRates, $strongFoot);
+        }
+        if (!($clubStmt = $mysqli->prepare("INSERT INTO club(clubName, league) VALUES (?, ?)"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        } else {
+            $clubStmt->bind_param("ss", $club, $league);
+        }
+        if (!($playsForStmt = $mysqli->prepare("INSERT INTO playsFor(playerName, clubName) VALUES (?, ?)"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        } else {
+            $playsForStmt->bind_param("ss", $playerName, $club);
         }
 
         $row = 1;
@@ -97,26 +113,21 @@ function addPlayers() {
             $workRates = $data[13];
             $strongFoot = $data[14];
             $playerStmt->execute();
-        }*/
+            $clubStmt->execute();
+            $playsForStmt->execute();
+        }
 
         
     fclose($file);
     
 
-    if (!$mysqli->query("SELECT * FROM club")) {
-        if (!$mysqli->query("DROP TABLE IF EXISTS club") || !$mysqli->query($createClubQuery)) {
-            echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-    }
-    if (!$mysqli->query("SELECT * FROM playsFor")) {
-        if (!$mysqli->query("DROP TABLE IF EXISTS playsFor") || !$mysqli->query($createPlaysForQuery)) {
-            echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-    }
+
     
 
     /*if (!($stmt = $mysqli->prepare("INSERT INTO users(username, password, email) VALUES (?, ?, ?)"))) {
         echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     }*/
 }
+
+addPlayers();
 ?>
