@@ -61,6 +61,9 @@ if (mysqli_connect_errno()) {
 
 
     <main>
+        <form action = "" class = filterForm method = "post">
+            <input type = "text" name = "search">
+        </form>
         <table class="table">
             <thead>
                 <tr>
