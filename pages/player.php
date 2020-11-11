@@ -93,7 +93,6 @@ $result_id = $row_club['id'];
                 <?php
                 $sql_general = "SELECT cardRating, position, workRates, strongFoot FROM player WHERE playerName='$playerName'";
                 $query_general = mysqli_query($connection, $sql_general) or die("Bad Query: $sql_general");
-                //$row_general = mysqli_fetch_assoc($query_general);
 
                 while ($rows = $query_general->fetch_assoc()) {
                     $cardRating = $rows['cardRating'];
