@@ -10,9 +10,6 @@ if (!isset($_SESSION["started"])) {
 // get player's name from the URL
 $playerId = str_replace("/dev/IAT352/pages/player.php?id=", "", $_SERVER['REQUEST_URI']);
 $playerId = urldecode($playerId);
-//Exploding here
-$tempPlayerId = explode("id=", $playerId);
-$playerId = $tempPlayerId[1];
 
 // database connection
 include("../phpData/dbconnect.php");
