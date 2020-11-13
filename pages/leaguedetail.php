@@ -63,6 +63,7 @@ $leagueName = $row_basic['leagueName'];
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
+                // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
@@ -82,44 +83,44 @@ $leagueName = $row_basic['leagueName'];
 
     <main>
 
-            <h2><?php echo $leagueName; ?></h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">CLUB</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <h2><?php echo $leagueName; ?></h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">CLUB</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                    <?php
-                    $query = "SELECT DISTINCT club.clubname
+                <?php
+                $query = "SELECT DISTINCT club.clubname
                 FROM league
                 INNER JOIN club ON club.leagueid = league.leagueid
                 WHERE league.leagueid = $leagueId OR league.leagueName = '$leagueName'";
 
-                    if ($result = $connection->query($query)) {
-                    } else {
-                        echo $connection->errno;
-                        echo $connection->error;
+                if ($result = $connection->query($query)) {
+                } else {
+                    echo $connection->errno;
+                    echo $connection->error;
+                }
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $tempClubName = $row["clubname"];
+                        $query2 = "SELECT clubid FROM club WHERE clubname = '$tempClubName' LIMIT 1";
+                        $result2 = $connection->query($query2);
+                        $row2 = $result2->fetch_assoc();
+                        echo "<tr>";
+                        // passes the info to the clubdetail page where it takes it from there.
+                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
+                        echo "</tr>";
                     }
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $tempClubName = $row["clubname"];
-                            $query2 = "SELECT clubid FROM club WHERE clubname = '$tempClubName' LIMIT 1";
-                            $result2 = $connection->query($query2);
-                            $row2 = $result2->fetch_assoc();
-                            echo "<tr>";
-                            //Passes the info to the clubdetail page where it takes it from there.
-                            echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
-                            echo "</tr>";
-                        }
-                    }
-                    ?>
+                }
+                ?>
 
 
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
 
 

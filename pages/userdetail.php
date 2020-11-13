@@ -23,18 +23,17 @@ if (mysqli_connect_errno()) {
 
 // queries
 if (isset($_SESSION["username"]) == false) {
-    die( "how did you get here");
+    die("how did you get here");
 }
 $username = $_SESSION["username"];
 
 $sql_basic = "SELECT user.username, user.password, user.email FROM user WHERE user.username = '$username'";
 if ($query_basic = $connection->query($sql_basic)) {
-
 } else {
     echo $connection->errno;
     echo $connection->error;
 }
-//$query_basic = mysqli_query($connection, $sql_basic) or die("Bad Query: $sql_basic");
+
 $row_basic = mysqli_fetch_assoc($query_basic);
 
 ?>
@@ -49,7 +48,7 @@ $row_basic = mysqli_fetch_assoc($query_basic);
 </head>
 
 <body>
-       
+
     <header class="header">
         <nav>
             <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
@@ -61,6 +60,7 @@ $row_basic = mysqli_fetch_assoc($query_basic);
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
+                // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
@@ -88,29 +88,30 @@ $row_basic = mysqli_fetch_assoc($query_basic);
                 </div>
             </div>
 
-            <div class = "info">
-                <form action = "userUpdateStuff.php" method = "post" class = "userInfo">
-                <fieldset class = "username">
-                    <p>Current Username: <?php echo $_SESSION["username"]?></p>
-                    <label for = "usernameForm">Change Username</label>
-                    <input type = "text" name = "usernameForm">
-                </fieldset>
-                <fieldset class = "oldPassword">
-                    <label for = "passwordForm">Current Password</label>
-                    <input type = "text" name = "passwordForm"><br>
-                </fieldset>
-                <fieldset class = "newPassword">
-                    <label for = "newPasswordForm">New Password</label>
-                    <input type = "text" name = "newPasswordForm"><br>
-                </fieldset>
-                <fieldset class = "submit">
-                    <input type = "submit">
-                </fieldset>
+            <!-- Input form for changing username and password -->
+            <div class="info">
+                <form action="userUpdateStuff.php" method="post" class="userInfo">
+                    <fieldset class="username">
+                        <p>Current Username: <?php echo $_SESSION["username"] ?></p>
+                        <label for="usernameForm">Change Username</label>
+                        <input type="text" name="usernameForm">
+                    </fieldset>
+                    <fieldset class="oldPassword">
+                        <label for="passwordForm">Current Password</label>
+                        <input type="text" name="passwordForm"><br>
+                    </fieldset>
+                    <fieldset class="newPassword">
+                        <label for="newPasswordForm">New Password</label>
+                        <input type="text" name="newPasswordForm"><br>
+                    </fieldset>
+                    <fieldset class="submit">
+                        <input type="submit">
+                    </fieldset>
                 </form>
             </div>
         </div>
 
-        
+
 
 
 

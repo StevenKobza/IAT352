@@ -7,7 +7,7 @@ if (!isset($_SESSION["started"])) {
     $_SESSION["started"] = "true";
 }
 
-// get player's name from the URL
+// get player's name from the URL and decode it
 $playerId = str_replace($_SERVER["SCRIPT_NAME"] . "?id=", "", $_SERVER['REQUEST_URI']);
 $playerId = urldecode($playerId);
 
@@ -29,7 +29,6 @@ if (mysqli_connect_errno()) {
 $sql_basic = "SELECT club.clubname, player.playerName FROM player 
 INNER JOIN club ON player.playerid = club.playerid WHERE player.playerid=$playerId";
 if ($query_basic = $connection->query($sql_basic)) {
-
 } else {
     echo $connection->errno;
     echo $connection->error;
@@ -62,6 +61,7 @@ $playerName = $row_basic['playerName'];
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
+                // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
@@ -86,7 +86,7 @@ $playerName = $row_basic['playerName'];
                 <div class="general-info">
                     <h2><?php echo $playerName; ?></h2>
                     <p>Club: <?php echo $club ?></p>
-                    <?php echo '<img src = "../img/datasetHeads/'. $playerId . '.jpg" alt = "">'; ?>
+                    <?php echo '<img src = "../img/datasetHeads/' . $playerId . '.jpg" alt = "">'; ?>
 
                 </div>
             </div>
@@ -95,6 +95,7 @@ $playerName = $row_basic['playerName'];
             <div class="general-stats">
 
                 <?php
+                // perform a query based on player id and display general stats
                 $sql_general = "SELECT cardRating, position, workRates, strongFoot FROM player WHERE playerid='$playerId'";
                 $query_general = mysqli_query($connection, $sql_general) or die("Bad Query: $sql_general");
 
@@ -138,6 +139,7 @@ $playerName = $row_basic['playerName'];
         <div class="specific-stats">
 
             <?php
+            // perform a query based on player id and display specific stats
             $sql_specific = "SELECT pace, shooting, passing, dribbling, defense, physical, weakFoot, skillMoves FROM player WHERE playerid='$playerId'";
             $query_specific = mysqli_query($connection, $sql_specific) or die("Bad Query: $sql_specific");
 
@@ -198,10 +200,10 @@ $playerName = $row_basic['playerName'];
             ?>
 
         </div>
-            <?php if(isset($_SESSION["username"])) {
-        echo "<h2>Add player to your collection</h2>";
-        echo '<a class="fave" href="#">Fave</a>';
-            }
+        <?php if (isset($_SESSION["username"])) {
+            echo "<h2>Add player to your collection</h2>";
+            echo '<a class="fave" href="#">Fave</a>';
+        }
         ?>
 
 

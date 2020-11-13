@@ -45,6 +45,7 @@ if (mysqli_connect_errno()) {
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
+                // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
@@ -74,7 +75,7 @@ if (mysqli_connect_errno()) {
 
         <?php
 
-        //Checking colour as well as the distinct positions
+        // checking colour as well as the distinct positions
         $defencePositions = array("LB", "CB", "RB", "LWB", "RWB");
         $midfieldPositions = array("CM", "CAM", "CDM", "LM", "RM");
         $forwardPositions = array("ST", "RW", "LW", "CF", "RF", "LF");

@@ -42,6 +42,7 @@ if (mysqli_connect_errno()) {
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
+                // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
@@ -64,24 +65,23 @@ if (mysqli_connect_errno()) {
 
         <div class="league-container">
 
-        <?php
-        $query = "SELECT DISTINCT leaguename FROM league";
-        $result = $connection->query($query);
+            <?php
+            $query = "SELECT DISTINCT leaguename FROM league";
+            $result = $connection->query($query);
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $tempLeagueName = $row["leaguename"];
-                $query2 = "SELECT leagueid FROM league WHERE leaguename = '$tempLeagueName' LIMIT 1";
-                $result2 = $connection->query($query2);
-                $row2 = $result2->fetch_assoc();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $tempLeagueName = $row["leaguename"];
+                    $query2 = "SELECT leagueid FROM league WHERE leaguename = '$tempLeagueName' LIMIT 1";
+                    $result2 = $connection->query($query2);
+                    $row2 = $result2->fetch_assoc();
 
-                echo "<a href = '../pages/leaguedetail.php?id=" . $row2['leagueid'] . "'><div class='league-box'>";
-                echo "<h2>" . $row['leaguename'] . "</h2>";
-                //echo "<h2>" . $row["leaguename"] . "</h2>";
-                echo "</div></a>";
+                    echo "<a href = '../pages/leaguedetail.php?id=" . $row2['leagueid'] . "'><div class='league-box'>";
+                    echo "<h2>" . $row['leaguename'] . "</h2>";
+                    echo "</div></a>";
+                }
             }
-        }
-        ?>
+            ?>
 
 
         </div>

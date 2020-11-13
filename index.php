@@ -11,7 +11,6 @@ include("./phpData/dbconnect.php");
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
-
 // test if connection succeeded 
 if (mysqli_connect_errno()) {
     // if connection failed, skip the rest of the code and print an error 
@@ -33,6 +32,7 @@ if (mysqli_connect_errno()) {
 
 <body>
 
+    <!-- navbar -->
     <header class="header">
         <nav>
             <a href="./index.php"><img src="./img/logo.png" alt="FIFA 21 logo" class="logo"></a>
@@ -44,6 +44,7 @@ if (mysqli_connect_errno()) {
                 <li><a href="./pages/leagues.php">Leagues</a></li>
                 <li><a href="./pages/position.php">Position</a></li>
                 <?php
+                // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "./pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "./data/log_out_post.php">Log Out</a></li>';
@@ -68,6 +69,7 @@ if (mysqli_connect_errno()) {
         <div class="filter">
 
             <?php
+            // queries for displaying distinct values for each 
             $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
             $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
@@ -79,6 +81,7 @@ if (mysqli_connect_errno()) {
                     <select name="position" id="position">
                         <option value="">Select One</option>
                         <?php
+                        // populate position filter with distinct position values and if selected, keep the selected value
                         while ($rows = $positionResult->fetch_assoc()) {
                             $position = $rows['position'];
                             $selected = '';
@@ -99,6 +102,7 @@ if (mysqli_connect_errno()) {
                     <select name="workRate" id="workRate">
                         <option value="">Select One</option>
                         <?php
+                        // populate workRate filter with distinct values and if selected, keep the selected value
                         while ($rows = $workRateResult->fetch_assoc()) {
                             $workRate = $rows['workRates'];
                             $selected = '';
@@ -119,6 +123,7 @@ if (mysqli_connect_errno()) {
                     <select name="strongFoot" id="strongFoot">
                         <option value="">Select One</option>
                         <?php
+                        // populate strongFoot filter with distinct values and if selected, keep the selected value
                         while ($rows = $strongFootResult->fetch_assoc()) {
                             $strongFoot = $rows['strongFoot'];
                             $selected = '';
@@ -153,6 +158,7 @@ if (mysqli_connect_errno()) {
             </thead>
             <tbody>
                 <?php
+                // check if the fiters are selected, and add them to the query
                 $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot 
                 FROM player 
                 INNER JOIN club ON player.playerid = club.playerid";
@@ -205,10 +211,9 @@ if (mysqli_connect_errno()) {
 
                 // find the number of results stored in database
                 $result = $connection->query($query);
-
                 $number_of_results = mysqli_num_rows($result);
 
-                // determine number of total pages available
+                // determine number of total pages available and round it
                 $number_of_pages = ceil($number_of_results / $results_per_page);
 
                 // determine which page number visitor is currently on
@@ -257,12 +262,14 @@ if (mysqli_connect_errno()) {
             {
                 $link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
             }
+            // create links for rest of the pages and add page number based on for-loop index
             for ($x = $page; $x <= $number_of_pages; $x++) {
                 if ($counter < $limit)
                     $link .= "<a class='pagination' href=\"?page=" . $x . "\">" . $x . " </a>";
 
                 $counter++;
             }
+            // add dots between pages if the page number is less than the total number of pages minus maximum number of pagination numbers allowed, divided by two
             if ($page < $number_of_pages - ($limit / 2)) {
                 $link .= "... " . "<a class='pagination' href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
             }

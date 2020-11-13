@@ -87,7 +87,7 @@ if (mysqli_connect_errno()) {
 
                 $query = "SELECT DISTINCT clubname FROM club";
 
-                //Searching code.
+                // searching for clubnames based on user input
                 if (isset($_POST["search"])) {
                     if ($_POST["search"] != "") {
                         $searchQuery = trim($_POST["search"]);
@@ -106,7 +106,7 @@ if (mysqli_connect_errno()) {
                         $result2 = $connection->query($query2);
                         $row2 = $result2->fetch_assoc();
 
-                        //This is the creation of the club
+                        // this is the creation of the club
                         echo "<tr>";
                         echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
                         echo "</tr>";
