@@ -85,8 +85,6 @@ $playerName = $row_basic['playerName'];
             <div class="profile">
                 <div class="general-info">
                     <h2><?php echo $club; ?></h2>
-                    <!--<p>Club: <?php// echo $club ?></p>-->
-                    <?php //echo '<img src = "../img/datasetHeads/'. $playerId . '.jpg" alt = "">'; ?>
 
                 </div>
             </div>

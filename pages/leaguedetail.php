@@ -8,6 +8,8 @@ if (!isset($_SESSION["started"])) {
 }
 
 // get player's name from the URL
+//Script_name gets the path to the file and then adds ?id= and then takes the total path which includes the id and then removes just the number.
+//This is used for club detail, player and league detail
 $leagueId = str_replace($_SERVER["SCRIPT_NAME"] . "?id=", "", $_SERVER['REQUEST_URI']);
 $leagueId = urldecode($leagueId);
 
@@ -85,8 +87,6 @@ $leagueName = $row_basic['leagueName'];
             <div class="profile">
                 <div class="general-info">
                     <h2><?php echo $leagueName; ?></h2>
-                    <!--<p>Club: <?php// echo $club ?></p>-->
-                    <?php //echo '<img src = "../img/datasetHeads/'. $playerId . '.jpg" alt = "">'; ?>
         <table class="table">
             <thead>
                 <tr>
@@ -115,8 +115,8 @@ $leagueName = $row_basic['leagueName'];
                         $result2 = $connection->query($query2);
                         $row2 = $result2->fetch_assoc();
                         echo "<tr>";
+                        //Passes the info to the clubdetail page where it takes it from there.
                         echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
-                        //echo "<td>" . $row["clubname"] . "</td>";
                         echo "</tr>";
                     }
                 }

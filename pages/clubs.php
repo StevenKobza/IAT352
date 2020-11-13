@@ -43,6 +43,7 @@ if (mysqli_connect_errno()) {
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>
                 <?php
+                //Code that checks if the username is set, and then if it is set, change the name to the username rather than sign up and login
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
@@ -64,6 +65,7 @@ if (mysqli_connect_errno()) {
         <form action = "" class = filterForm method = "post">
             
             <?php 
+            //If it already exists, then just add the original search as a placeholder
             $temp = '<input type = "text" name = "search" class = "searchBox"';
             if (isset($_POST["search"]) && $_POST["search"] != "") {
                 $temp .= "placeholder = " . $_POST["search"];
@@ -85,9 +87,11 @@ if (mysqli_connect_errno()) {
 
                 $query = "SELECT DISTINCT clubname FROM club";
 
+                //Searching code.
                 if (isset($_POST["search"])) {
                     if ($_POST["search"] != "") {
                         $searchQuery = trim($_POST["search"]);
+                        //% because it allows for wildcards on both sides.
                         $query .= " WHERE clubname LIKE '%$searchQuery%' ";
                     }
                 }
@@ -96,13 +100,15 @@ if (mysqli_connect_errno()) {
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        //Way to get around the distinct club ids being duplicates.
                         $tempClubName = $row["clubname"];
                         $query2 = "SELECT clubid FROM club WHERE clubname = '$tempClubName' LIMIT 1";
                         $result2 = $connection->query($query2);
                         $row2 = $result2->fetch_assoc();
+
+                        //This is the creation of the club
                         echo "<tr>";
                         echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
-                        //echo "<td>" . $row["clubname"] . "</td>";
                         echo "</tr>";
                     }
                 }

@@ -49,7 +49,7 @@ if (!isset($_SESSION["started"])) {
 
 
         <main>
-
+            <!--Passing the info to the "sign-up_post.php" file for checking-->
             <form action="../data/sign-up_post.php" class="signup" method = "post">
                 <div class="input-group-1">
                     <input type="text" id="username" name="username" placeholder="Username">

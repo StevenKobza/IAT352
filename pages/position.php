@@ -73,6 +73,8 @@ if (mysqli_connect_errno()) {
 
 
         <?php
+
+        //Checking colour as well as the distinct positions
         $defencePositions = array("LB", "CB", "RB", "LWB", "RWB");
         $midfieldPositions = array("CM", "CAM", "CDM", "LM", "RM");
         $forwardPositions = array("ST", "RW", "LW", "CF", "RF", "LF");

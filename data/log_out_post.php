@@ -19,7 +19,7 @@ if (!isset($_SESSION["started"])) {
 
     <body>
     <?php
-
+    //Just unsets the username
         unset($_SESSION["username"]);
     ?>
         <header class="header">

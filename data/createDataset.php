@@ -1,19 +1,11 @@
 <?php
 function addPlayers() {
-    set_include_path(".:/opt/lampp/htdocs/dev/steven_kobza");
+    set_include_path(".:/opt/lampp/htdocs/steven_kobza");
     include("../phpData/dbconnect.php");
     $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
     }
-
-    /*if(!$mysqli->select_db("fifa2021")) {
-        $sql = "CREATE DATABASE fifa2021";
-
-        if ($mysqli->query($sql) != FALSE) {
-            $mysqli->select_db("fifa2021");
-        }
-    }*/
 
     $createUserQuery = "CREATE TABLE user (
         username VARCHAR(128) NOT NULL,
@@ -65,21 +57,16 @@ function addPlayers() {
         FOREIGN KEY (playerid) REFERENCES player(playerid)
     )";
 
-    /*$createPlaysForQuery = "CREATE TABLE playsFor (
-        playerName VARCHAR(128) NOT NULL PRIMARY KEY,
-        clubName VARCHAR(128) NOT NULL
-    )";*/
-
-
-
-    $createFavouritePlayersQuery;
-
     $file = fopen("../dataset/archive/players.csv", "r", 1);
+    
+    //Dropping all the tables to prevent any foreign key problems
     $mysqli->query("DROP TABLE IF EXISTS club");
     $mysqli->query("DROP TABLE IF EXISTS faves");
     $mysqli->query("DROP TABLE IF EXISTS league");
     $mysqli->query("DROP TABLE IF EXISTS user");
     $mysqli->query("DROP TABLE IF EXISTS player");
+
+        //If for some reason it doesn't work, it drops it again and then creates the table again.
         if (!$mysqli->query("DROP TABLE IF EXISTS user") || !$mysqli->query($createUserQuery)) {
             echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -96,6 +83,8 @@ function addPlayers() {
             echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
+
+        //Preparing player statement.
         if (!($playerStmt = $mysqli->prepare("INSERT INTO player(playerName, position,
             pace, shooting, passing, dribbling, defense, physical,
             cardRating, weakFoot, skillMoves, workRates, strongFoot) VALUES (?, ?,
@@ -106,25 +95,23 @@ function addPlayers() {
             $pace, $shooting, $passing, $dribbing, $defense, $physical,
         $cardRating, $weakFoot, $skillMoves, $workRates, $strongFoot);
         }
+
+        //Preparing league statement
         if (!($leagueStmt = $mysqli->prepare("INSERT INTO league(leagueName) VALUES (?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         } else {
             $leagueStmt->bind_param("s", $league);
         }
+
+        //Preparing club statement
         if (!($clubStmt = $mysqli->prepare("INSERT INTO club (clubName, leagueid, playerid) VALUES (?, ?, ?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         } else {
             $clubStmt->bind_param("sii", $club, $leagueid, $playerid);
         }
-        /*if (!($playsForStmt = $mysqli->prepare("INSERT INTO playsFor(playerName, clubName) VALUES (?, ?)"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        } else {
-            $playsForStmt->bind_param("ss", $playerName, $club);
-        }*/
 
         $row = 1;
         while (($data = fgetcsv($file, 1000, ",")) != FALSE) {
-            $num = count($data);
             if ($row == 1) {
                 $row++;
                 continue;
@@ -132,8 +119,12 @@ function addPlayers() {
             else {
                 $row++;
             }
+            //This just sets the id to be the same as the row that is being read in.
+            //This works with all the indices.
             $leagueid = ($row-2);
             $playerid = ($row-2);
+
+            //Setting the variables for the prepared statements
             $playerName = $data[0];
             $position = $data[1];
             $club = $data[2];
@@ -149,22 +140,15 @@ function addPlayers() {
             $skillMoves = $data[12];
             $workRates = $data[13];
             $strongFoot = $data[14];
+
+            //Executing said prepared statements
             $playerStmt->execute();
             $leagueStmt->execute();
             $clubStmt->execute();
-            //$playsForStmt->execute();
         }
 
         
     fclose($file);
-    
-
-
-    
-
-    /*if (!($stmt = $mysqli->prepare("INSERT INTO users(username, password, email) VALUES (?, ?, ?)"))) {
-        echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-    }*/
 }
 
 addPlayers();

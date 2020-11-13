@@ -31,6 +31,7 @@ if (!isset($_SESSION["started"])) {
         if ($result->num_rows > 0) {
             $temp = false;
             while ($row = $result->fetch_assoc()) {
+                //Checking whether the password = any other passwords in the db and then makes sure that the username is the same as the pw's username
                 if (password_verify($_POST["password"], $row["password"]) && $_POST["username"] == $row["username"]) {
                     if(isset($_POST["username"])) {
                     $_SESSION["username"] = $_POST["username"];
@@ -40,6 +41,7 @@ if (!isset($_SESSION["started"])) {
                 }
             }
             if ($temp == false) {
+                //Adds a variable to check after the header
                 $_SESSION["wrongPW"] = True;
             }
         }
@@ -77,6 +79,7 @@ if (!isset($_SESSION["started"])) {
 
         <main>
             <?php
+            //If it's wrong, then need to tell the user that.
             if (isset($_SESSION["wrongPW"])) {
                 echo "Your password or username is incorrect";
                 unset($_SESSION["wrongPW"]);

@@ -157,6 +157,8 @@ if (mysqli_connect_errno()) {
                 FROM player 
                 INNER JOIN club ON player.playerid = club.playerid";
                 $somethingSet = false;
+
+                //Checking for info from the drop downs.
                 if (isset($_POST["strongFoot"])) {
                     
                     if ($_POST["strongFoot"] != "") {

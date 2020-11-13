@@ -39,12 +39,15 @@
                 echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
             }
             
+            //Preparing to add a new user into the db
             if (!($stmt = $mysqli->prepare("INSERT INTO user(username, email, password) VALUES (?, ?, ?)"))) {
                 echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 
+            //Binding
             $stmt->bind_param("sss", $username, $email, $password);
 
+            //Adding the info and hashing the password using PHP's default hash
             $username = $_POST["username"];
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $email = $_POST["email"];
