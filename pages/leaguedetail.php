@@ -8,7 +8,7 @@ if (!isset($_SESSION["started"])) {
 }
 
 // get player's name from the URL
-$leagueId = str_replace("/dev/steven_kobza/pages/leaguedetail.php?id=", "", $_SERVER['REQUEST_URI']);
+$leagueId = str_replace($_SERVER["SCRIPT_NAME"] . "?id=", "", $_SERVER['REQUEST_URI']);
 $leagueId = urldecode($leagueId);
 
 // database connection

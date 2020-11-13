@@ -8,7 +8,7 @@ if (!isset($_SESSION["started"])) {
 }
 
 // get player's name from the URL
-$clubId = str_replace("/dev/steven_kobza/pages/clubdetail.php?id=", "", $_SERVER['REQUEST_URI']);
+$clubId = str_replace($_SERVER["SCRIPT_NAME"] . "?id=", "", $_SERVER['REQUEST_URI']);
 $clubId = urldecode($clubId);
 
 // database connection

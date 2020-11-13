@@ -33,7 +33,7 @@
             }
             
             if (!($stmt = $mysqli->prepare("INSERT INTO user(username, email, password) VALUES (?, ?, ?)"))) {
-                echo "Preare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 
             $stmt->bind_param("sss", $username, $email, $password);
