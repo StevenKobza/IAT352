@@ -247,7 +247,7 @@ main {
 
 /* TEXT */
 h1 {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 600;
 }
 
@@ -520,7 +520,6 @@ label {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-left: 1em;
 }
 
 .general-info h2 {
@@ -596,5 +595,26 @@ label {
           margin-block-start: 0em;
   -webkit-margin-after: 0em;
           margin-block-end: 0em;
+}
+
+.club-search {
+  height: 0.1rem;
+  margin-bottom: 2rem;
+}
+
+.fave {
+  background-color: #F60104;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 0.3rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.fave:hover {
+  background-color: black;
+  color: white;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 /*# sourceMappingURL=main.css.map */

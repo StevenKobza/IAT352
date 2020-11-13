@@ -239,7 +239,7 @@ main {
 /* TEXT */
 
 h1 {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 600;
 }
 
@@ -466,8 +466,6 @@ label {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    margin-left: 1em;
-
     h2 {
         font-size: 3rem;
     }
@@ -533,4 +531,28 @@ label {
         margin-block-start: 0em;
         margin-block-end: 0em;
     }
+}
+
+
+// Club page
+
+.club-search {
+    height: 0.1rem;
+    margin-bottom: 2rem;
+}
+
+
+// fave button
+.fave {
+    background-color: #F60104;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 0.3rem;
+    transition: 0.2s;
+}
+
+.fave:hover {
+    background-color: black;
+    color: white;
+    transition: 0.2s;
 }

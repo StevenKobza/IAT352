@@ -85,7 +85,6 @@ $playerName = $row_basic['playerName'];
             <div class="profile">
                 <div class="general-info">
                     <h2><?php echo $club; ?></h2>
-
                 </div>
             </div>
 

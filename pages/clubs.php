@@ -66,7 +66,7 @@ if (mysqli_connect_errno()) {
             
             <?php 
             //If it already exists, then just add the original search as a placeholder
-            $temp = '<input type = "text" name = "search" class = "searchBox"';
+            $temp = '<input class="club-search" type = "text" name = "search" class = "searchBox"';
             if (isset($_POST["search"]) && $_POST["search"] != "") {
                 $temp .= "placeholder = " . $_POST["search"];
             }
