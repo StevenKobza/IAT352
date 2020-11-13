@@ -28,7 +28,7 @@ if (mysqli_connect_errno()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <title>FIFA 21</title>
+    <title>FIFA 21 - Players</title>
 </head>
 
 <body>

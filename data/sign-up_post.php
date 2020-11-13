@@ -16,7 +16,7 @@
                 <ul class="menu">
                     <li><a href="../pages/players.php">Players</a></li>
                     <li><a href="../pages/clubs.php">Clubs</a></li>
-                    <li><a href="../pages/national-teams.php">National Teams</a></li>
+                    <li><a href="../pages/leagues.php">Leagues</a></li>
                     <li><a href="../pages/position.php">Position</a></li>
                     <?php
                 if (isset($_SESSION["username"])) {
