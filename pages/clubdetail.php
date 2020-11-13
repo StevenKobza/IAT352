@@ -194,9 +194,6 @@ $playerName = $row_basic['playerName'];
         echo $link;
         ?>
 
-        <h2>Add player to your collection</h2>
-        <a class="fave" href="#">Fave</a>
-
 
 
 

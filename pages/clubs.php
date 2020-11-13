@@ -83,7 +83,6 @@ if (mysqli_connect_errno()) {
                         $query .= " WHERE clubname LIKE '%$searchQuery%' ";
                     }
                 }
-                echo $query;
                 $result = $connection->query($query);
 
                 if ($result->num_rows > 0) {

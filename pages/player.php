@@ -198,9 +198,11 @@ $playerName = $row_basic['playerName'];
             ?>
 
         </div>
-
-        <h2>Add player to your collection</h2>
-        <a class="fave" href="#">Fave</a>
+            <?php if(isset($_SESSION["username"])) {
+        echo "<h2>Add player to your collection</h2>";
+        echo '<a class="fave" href="#">Fave</a>';
+            }
+        ?>
 
 
 
