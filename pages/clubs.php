@@ -75,7 +75,7 @@ if (mysqli_connect_errno()) {
 
                 <?php
 
-                $query = "SELECT DISTINCT clubname, clubid FROM club";
+                $query = "SELECT DISTINCT clubname FROM club";
 
                 if (isset($_POST["search"])) {
                     if ($_POST["search"] != "") {
@@ -84,11 +84,16 @@ if (mysqli_connect_errno()) {
                     }
                 }
                 $result = $connection->query($query);
+                
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $tempClubName = $row["clubname"];
+                        $query2 = "SELECT clubid FROM club WHERE clubname = '$tempClubName' LIMIT 1";
+                        $result2 = $connection->query($query2);
+                        $row2 = $result2->fetch_assoc();
                         echo "<tr>";
-                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row['clubid'] . "'>" . $row['clubname'] . "</a></td>";
+                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
                         //echo "<td>" . $row["clubname"] . "</td>";
                         echo "</tr>";
                     }

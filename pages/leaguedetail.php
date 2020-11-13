@@ -96,7 +96,7 @@ $leagueName = $row_basic['leagueName'];
             <tbody>
 
                 <?php
-                $query = "SELECT DISTINCT club.clubname, club.clubid
+                $query = "SELECT DISTINCT club.clubname
                 FROM league
                 INNER JOIN club ON club.leagueid = league.leagueid
                 WHERE league.leagueid = $leagueId OR league.leagueName = '$leagueName'";
@@ -110,8 +110,12 @@ $leagueName = $row_basic['leagueName'];
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $tempClubName = $row["clubname"];
+                        $query2 = "SELECT clubid FROM club WHERE clubname = '$tempClubName' LIMIT 1";
+                        $result2 = $connection->query($query2);
+                        $row2 = $result2->fetch_assoc();
                         echo "<tr>";
-                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row['clubid'] . "'>" . $row['clubname'] . "</a></td>";
+                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
                         //echo "<td>" . $row["clubname"] . "</td>";
                         echo "</tr>";
                     }
