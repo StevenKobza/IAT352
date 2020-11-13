@@ -66,11 +66,13 @@ if (mysqli_connect_errno()) {
         <div class="league-container">
 
             <?php
+            //Can't grab the leagueid from here because by design each of the leagues and each of the leagues being connected has a distinct leagueid.
             $query = "SELECT DISTINCT leaguename FROM league";
             $result = $connection->query($query);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    //Grabbing the first leagueid that matches with the league name.
                     $tempLeagueName = $row["leaguename"];
                     $query2 = "SELECT leagueid FROM league WHERE leaguename = '$tempLeagueName' LIMIT 1";
                     $result2 = $connection->query($query2);

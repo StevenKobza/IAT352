@@ -84,6 +84,7 @@ $leagueName = $row_basic['leagueName'];
     <main>
 
         <h2><?php echo $leagueName; ?></h2>
+        <!--Creates a table in HTML to start off with and puts club at the top-->
         <table class="table">
             <thead>
                 <tr>
@@ -93,6 +94,8 @@ $leagueName = $row_basic['leagueName'];
             <tbody>
 
                 <?php
+                //Querying the database, getting each of the clubnames that are in the league to be displayed later.
+                //Can't get the clubid because each one is distinct in and of itself.
                 $query = "SELECT DISTINCT club.clubname
                 FROM league
                 INNER JOIN club ON club.leagueid = league.leagueid
@@ -106,6 +109,7 @@ $leagueName = $row_basic['leagueName'];
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        //Grabbing the first clubid that matches with the clubname.
                         $tempClubName = $row["clubname"];
                         $query2 = "SELECT clubid FROM club WHERE clubname = '$tempClubName' LIMIT 1";
                         $result2 = $connection->query($query2);

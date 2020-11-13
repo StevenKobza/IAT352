@@ -53,12 +53,17 @@ $row_basic = mysqli_fetch_assoc($query_basic);
     $tempUsername;
     $runQuery = false;
     $updateUserName = false;
+    //If the username form or the two password forms have stuff in them, then this is run.
     if (isset($_POST["usernameForm"]) || (isset($_POST["passwordForm"]) && isset($_POST["newPassword"]))) {
+        //If the username form is full, this is run
         if (isset($_POST["usernameForm"])) {
+            //If it's not empty, continues.
             if ($_POST["usernameForm"] != "") {
                 $runQuery = true;
-                $updateUserName = true;
+                //Updating username so it doesn't do it when it's not supposed to.
+                $updateUserName = true; 
                 $tempUsername = $_POST["usernameForm"];
+                //If both are used, then need different code.
                 if ($atLeastOne == false) {
                     $query = "UPDATE user SET username = '$tempUsername'";
                     $atLeastOne = true;
@@ -67,12 +72,18 @@ $row_basic = mysqli_fetch_assoc($query_basic);
                 }
             }
         }
+        //If both the new and the old password sections are filled out, then this is run.
         if (isset($_POST["newPasswordForm"]) && isset($_POST["passwordForm"])) {
+            //If they're both not empty then it continues.
             if ($_POST["newPasswordForm"] != "" && $_POST["passwordForm"] != "") {
+                //Verifies the entry for the old password against the stored password.
                 if (password_verify($_POST["passwordForm"], $row_basic["password"])) {
+                    //Creates a new password.
                     $pw = password_hash($_POST["newPasswordForm"], PASSWORD_DEFAULT);
+                    //Escapes said password.
                     $pw = $connection->real_escape_string($pw);
                     $runQuery = true;
+                    //If both are used, then need different code.
                     if ($atLeastOne == false) {
                         $query = "UPDATE user SET password = \"$pw\"";
                         $atLeastOne = true;

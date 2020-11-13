@@ -200,6 +200,7 @@ $playerName = $row_basic['playerName'];
             ?>
 
         </div>
+        <!--Only shown if the person is logged in-->
         <?php if (isset($_SESSION["username"])) {
             echo "<h2>Add player to your collection</h2>";
             echo '<a class="fave" href="#">Fave</a>';
