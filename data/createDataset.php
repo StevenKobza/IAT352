@@ -1,6 +1,6 @@
 <?php
 function addPlayers() {
-    set_include_path(".:/opt/lampp/htdocs/dev/p1");
+    set_include_path(".:/opt/lampp/htdocs/dev/steven_kobza");
     include("../phpData/dbconnect.php");
     $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
     if ($mysqli->connect_errno) {

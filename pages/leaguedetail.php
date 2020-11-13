@@ -7,8 +7,13 @@ if (!isset($_SESSION["started"])) {
     $_SESSION["started"] = "true";
 }
 
+// get player's name from the URL
+$leagueId = str_replace("/dev/steven_kobza/pages/leaguedetail.php?id=", "", $_SERVER['REQUEST_URI']);
+$leagueId = urldecode($leagueId);
+
 // database connection
 include("../phpData/dbconnect.php");
+
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
 // test if connection succeeded 
@@ -18,8 +23,22 @@ if (mysqli_connect_errno()) {
         mysqli_connect_error() .
         " (" . mysqli_connect_errno() . ")");
 }
-?>
 
+
+// queries
+$sql_basic = "SELECT club.clubname, league.leagueName FROM league 
+INNER JOIN club ON club.leagueid = league.leagueid WHERE league.leagueid = $leagueId";
+if ($query_basic = $connection->query($sql_basic)) {
+
+} else {
+    echo $connection->errno;
+    echo $connection->error;
+}
+//$query_basic = mysqli_query($connection, $sql_basic) or die("Bad Query: $sql_basic");
+$row_basic = mysqli_fetch_assoc($query_basic);
+$club =  $row_basic['clubname'];
+$leagueName = $row_basic['leagueName'];
+?>
 
 <html lang="en">
 
@@ -27,7 +46,7 @@ if (mysqli_connect_errno()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <title>FIFA 21 — Clubs</title>
+    <title>FIFA 21 — National Teams</title>
 </head>
 
 <body>
@@ -56,14 +75,18 @@ if (mysqli_connect_errno()) {
     </header>
 
     <div class="main-banner">
-        <h1 class="landing-header">Clubs</h1>
+        <h1 class="landing-header">League</h1>
     </div>
 
 
     <main>
-        <form action = "" class = filterForm method = "post">
-            <input type = "text" name = "search">
-        </form>
+
+        <div>
+            <div class="profile">
+                <div class="general-info">
+                    <h2><?php echo $leagueName; ?></h2>
+                    <!--<p>Club: <?php// echo $club ?></p>-->
+                    <?php //echo '<img src = "../img/datasetHeads/'. $playerId . '.jpg" alt = "">'; ?>
         <table class="table">
             <thead>
                 <tr>
@@ -73,8 +96,17 @@ if (mysqli_connect_errno()) {
             <tbody>
 
                 <?php
-                $query = "SELECT DISTINCT clubname, clubid FROM club";
-                $result = $connection->query($query);
+                $query = "SELECT DISTINCT club.clubname, club.clubid
+                FROM league
+                INNER JOIN club ON club.leagueid = league.leagueid
+                WHERE league.leagueid = $leagueId OR league.leagueName = '$leagueName'";
+                
+                if ($result = $connection->query($query)) {
+
+                } else {
+                    echo $connection->errno;
+                    echo $connection->error;
+                }
 
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
