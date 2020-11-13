@@ -65,12 +65,17 @@ if (mysqli_connect_errno()) {
         <div class="league-container">
 
         <?php
-        $query = "SELECT DISTINCT leaguename, leagueid FROM league";
+        $query = "SELECT DISTINCT leaguename FROM league";
         $result = $connection->query($query);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<a href = '../pages/leaguedetail.php?id=" . $row['leagueid'] . "'><div class='league-box'>";
+                $tempLeagueName = $row["leaguename"];
+                $query2 = "SELECT leagueid FROM league WHERE leaguename = '$tempLeagueName' LIMIT 1";
+                $result2 = $connection->query($query2);
+                $row2 = $result2->fetch_assoc();
+
+                echo "<a href = '../pages/leaguedetail.php?id=" . $row2['leagueid'] . "'><div class='league-box'>";
                 echo "<h2>" . $row['leaguename'] . "</h2>";
                 //echo "<h2>" . $row["leaguename"] . "</h2>";
                 echo "</div></a>";
