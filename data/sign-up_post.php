@@ -14,12 +14,19 @@
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
                 <ul class="menu">
-                    <li><a href="../index.php">Players</a></li>
+                    <li><a href="../pages/players.php">Players</a></li>
                     <li><a href="../pages/clubs.php">Clubs</a></li>
                     <li><a href="../pages/national-teams.php">National Teams</a></li>
                     <li><a href="../pages/position.php">Position</a></li>
-                    <li><a href="../pages/login.php">Login</a></li>
-                    <li><a href="../pages/sign-up.php">Sign up</a></li>
+                    <?php
+                if (isset($_SESSION["username"])) {
+                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
+                } else {
+                    echo '<li><a href="../pages/login.php">Login</a></li>';
+                    echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
+                }
+                ?>
                 </ul>
             </nav>
         </header>

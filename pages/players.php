@@ -7,7 +7,7 @@ if (!isset($_SESSION["started"])) {
 }
 
 // database connection
-include("./phpData/dbconnect.php");
+include("../phpData/dbconnect.php");
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -27,7 +27,7 @@ if (mysqli_connect_errno()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <title>FIFA 21</title>
 </head>
 
@@ -35,14 +35,14 @@ if (mysqli_connect_errno()) {
 
     <header class="header">
         <nav>
-            <a href="./index.php"><img src="./img/logo.png" alt="FIFA 21 logo" class="logo"></a>
+            <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
-                <li><a href="./pages/players.php">Players</a></li>
-                <li><a href="./pages/clubs.php">Clubs</a></li>
-                <li><a href="./pages/leagues.php">Leagues</a></li>
-                <li><a href="./pages/position.php">Position</a></li>
+                <li><a href="../pages/players.php">Players</a></li>
+                <li><a href="../pages/clubs.php">Clubs</a></li>
+                <li><a href="../pages/leagues.php">Leagues</a></li>
+                <li><a href="../pages/position.php">Position</a></li>
                 <?php
                 if (isset($_SESSION["username"])) {
                     echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
@@ -137,7 +137,7 @@ if (mysqli_connect_errno()) {
             </form>
 
         </div>
-
+        
 
         <table class="table">
             <thead>
@@ -158,6 +158,7 @@ if (mysqli_connect_errno()) {
                 INNER JOIN club ON player.playerid = club.playerid";
                 $somethingSet = false;
                 if (isset($_POST["strongFoot"])) {
+                    
                     if ($_POST["strongFoot"] != "") {
                         if ($somethingSet == true) {
                             $query .= " AND ";
@@ -228,7 +229,7 @@ if (mysqli_connect_errno()) {
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
+                        echo '<th scope = "row"><img src = "../img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
 
                         // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
                         echo "<td> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
