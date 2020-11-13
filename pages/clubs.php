@@ -63,6 +63,7 @@ if (mysqli_connect_errno()) {
     <main>
         <form action = "" class = filterForm method = "post">
             <input type = "text" name = "search">
+            <input type = 'submit'>
         </form>
         <table class="table">
             <thead>
@@ -73,7 +74,16 @@ if (mysqli_connect_errno()) {
             <tbody>
 
                 <?php
+
                 $query = "SELECT DISTINCT clubname, clubid FROM club";
+
+                if (isset($_POST["search"])) {
+                    if ($_POST["search"] != "") {
+                        $searchQuery = trim($_POST["search"]);
+                        $query .= " WHERE clubname LIKE '%$searchQuery%' ";
+                    }
+                }
+                echo $query;
                 $result = $connection->query($query);
 
                 if ($result->num_rows > 0) {
