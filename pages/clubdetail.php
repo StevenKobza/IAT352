@@ -8,8 +8,14 @@ if (!isset($_SESSION["started"])) {
 }
 
 // get player's name from the URL
-$clubId = str_replace($_SERVER["SCRIPT_NAME"] . "?id=", "", $_SERVER['REQUEST_URI']);
-$clubId = urldecode($clubId);
+if (strpos($_SERVER['REQUEST_URI'], "id")) {
+    $clubId = str_replace($_SERVER["SCRIPT_NAME"] . "?id=", "", $_SERVER['REQUEST_URI']);
+    $clubId = urldecode($clubId);
+    $_SESSION["clubId"] = $clubId;
+} else if (strpos($_SERVER['REQUEST_URI'], "page")) {
+    $clubId = $_SESSION["clubId"];
+}
+
 
 // database connection
 include("../phpData/dbconnect.php");
