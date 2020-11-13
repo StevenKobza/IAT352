@@ -340,6 +340,13 @@ form {
           flex-direction: row;
 }
 
+form.userInfo {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 fieldset {
   border: none;
 }
@@ -590,22 +597,4 @@ label {
   -webkit-margin-after: 0em;
           margin-block-end: 0em;
 }
-
-.fave {
-  border-radius: 0.5rem;
-  background-color: #FB1F1E;
-  color: white;
-  padding: 0.7rem 2rem;
-  cursor: pointer;
-  transition: 0.2s;
-  margin-top: 5rem;
-}
-
-.fave:hover {
-  background-color: #ce1818;
-  color: white;
-  transition: 0.2s;
-}
-
-
 /*# sourceMappingURL=main.css.map */

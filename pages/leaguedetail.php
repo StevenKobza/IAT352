@@ -65,7 +65,7 @@ $leagueName = $row_basic['leagueName'];
                 <li><a href="./position.php">Position</a></li>
                 <?php
                 if (isset($_SESSION["username"])) {
-                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
                 } else {
                     echo '<li><a href="../pages/login.php">Login</a></li>';

@@ -322,6 +322,10 @@ form {
     flex-direction: row;
 }
 
+form.userInfo {
+    flex-direction: column;
+}
+
 fieldset {
     border: none;
 }

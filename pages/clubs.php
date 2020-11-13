@@ -45,7 +45,7 @@ if (mysqli_connect_errno()) {
                 <?php
                 //Code that checks if the username is set, and then if it is set, change the name to the username rather than sign up and login
                 if (isset($_SESSION["username"])) {
-                    echo '<li> <a href = "#" id="user">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
                     echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
                 } else {
                     echo '<li><a href="../pages/login.php">Login</a></li>';

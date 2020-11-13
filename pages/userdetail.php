@@ -20,8 +20,24 @@ if (mysqli_connect_errno()) {
         " (" . mysqli_connect_errno() . ")");
 }
 
-?>
 
+// queries
+if (isset($_SESSION["username"]) == false) {
+    die( "how did you get here");
+}
+$username = $_SESSION["username"];
+
+$sql_basic = "SELECT user.username, user.password, user.email FROM user WHERE user.username = '$username'";
+if ($query_basic = $connection->query($sql_basic)) {
+
+} else {
+    echo $connection->errno;
+    echo $connection->error;
+}
+//$query_basic = mysqli_query($connection, $sql_basic) or die("Bad Query: $sql_basic");
+$row_basic = mysqli_fetch_assoc($query_basic);
+
+?>
 
 <html lang="en">
 
@@ -29,11 +45,11 @@ if (mysqli_connect_errno()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <title>FIFA 21 — Position</title>
+    <title>FIFA 21 — User Detail</title>
 </head>
 
 <body>
-
+       
     <header class="header">
         <nav>
             <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
@@ -58,47 +74,43 @@ if (mysqli_connect_errno()) {
     </header>
 
     <div class="main-banner">
-        <h1 class="landing-header">Position</h1>
+        <h1 class="landing-header">User</h1>
     </div>
 
 
     <main>
 
-        <div class="position-icons-container">
-            <div class="forward-icon">Forward</div>
-            <div class="midfield-icon">Midfield</div>
-            <div class="defence-icon">Defence</div>
+        <div>
+            <div class="profile">
+                <div class="general-info">
+                    <h2><?php echo $_SESSION["username"]; ?></h2>
+
+                </div>
+            </div>
+
+            <div class = "info">
+                <form action = "userUpdateStuff.php" method = "post" class = "userInfo">
+                <fieldset class = "username">
+                    <p>Current Username: <?php echo $_SESSION["username"]?></p>
+                    <label for = "usernameForm">Change Username</label>
+                    <input type = "text" name = "usernameForm">
+                </fieldset>
+                <fieldset class = "oldPassword">
+                    <label for = "passwordForm">Current Password</label>
+                    <input type = "text" name = "passwordForm"><br>
+                </fieldset>
+                <fieldset class = "newPassword">
+                    <label for = "newPasswordForm">New Password</label>
+                    <input type = "text" name = "newPasswordForm"><br>
+                </fieldset>
+                <fieldset class = "submit">
+                    <input type = "submit">
+                </fieldset>
+                </form>
+            </div>
         </div>
 
-
-
-        <?php
-
-        //Checking colour as well as the distinct positions
-        $defencePositions = array("LB", "CB", "RB", "LWB", "RWB");
-        $midfieldPositions = array("CM", "CAM", "CDM", "LM", "RM");
-        $forwardPositions = array("ST", "RW", "LW", "CF", "RF", "LF");
-
-        $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
-        echo '<div class="position-container">';
-        while ($rows = $positionResult->fetch_assoc()) {
-            $position = trim($rows['position'], " ");       // removing extra space before position name
-
-            echo '<div class="position-box"';
-
-            if (in_array($position, $defencePositions)) {          // check if poisiton is defence
-                echo ' id="defence" >';
-            } else if (in_array($position, $midfieldPositions)) {     // check if position is midfield
-                echo ' id="midfield" >';
-            } else {                                                  // position is forward
-                echo ' id="forward" >';
-            }
-            echo $position . '</div>';
-        }
-        echo '</div>';
-        ?>
-
-
+        
 
 
 
