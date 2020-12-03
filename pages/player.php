@@ -202,10 +202,31 @@ $playerName = $row_basic['playerName'];
         </div>
         <!--Only shown if the person is logged in-->
         <?php if (isset($_SESSION["username"])) {
+            if (isset($_POST["Fave"])) {
+                $tempUN = $_SESSION["username"];
+                $getUserIDQuery = "SELECT user.userid FROM user WHERE user.username = '$tempUN'";
+                if (!$connection->query($getUserIDQuery)) {
+                    echo "creation failed: (" . $connection->errno . ") " . $connection->error;
+                } else {
+                    $result = $connection->query($getUserIDQuery);
+                }
+                while ($rows = $result->fetch_assoc()) {
+                    $userID = $rows["userid"];
+                }
+                $query = "INSERT INTO faves(userid, playerid) VALUES ($userID, $playerId)";
+                if (!$connection->query($query)) {
+                    echo "creation failed: (" . $connection->errno . ") " . $connection->error;
+                }
+                
+            }
             echo "<h2>Add player to your collection</h2>";
-            echo '<a class="fave" href="#">Fave</a>';
+            echo "<form method = 'post'>";
+            echo "<input type = 'submit' name = 'Fave' class = 'fave' value = 'Fave'>";
+            
+            //echo '<a class="fave" id = "fave" href="#">Fave</a>';
         }
         ?>
+        <script src = "../js/faves.js"></script>
 
 
 

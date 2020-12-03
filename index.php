@@ -69,6 +69,7 @@ if (mysqli_connect_errno()) {
         <div class="filter">
 
             <?php
+            
             // queries for displaying distinct values for each 
             $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
             $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
@@ -159,9 +160,16 @@ if (mysqli_connect_errno()) {
             <tbody>
                 <?php
                 // check if the fiters are selected, and add them to the query
-                $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot 
-                FROM player 
-                INNER JOIN club ON player.playerid = club.playerid";
+                if (isset($_SESSION["username"])) {
+                    $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot
+                    FROM ((faves 
+                    INNER JOIN player ON player.playerid = faves.playerid)
+                    INNER JOIN club ON faves.playerid = club.playerid)";
+                } else {
+                    $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot 
+                    FROM player 
+                    INNER JOIN club ON player.playerid = club.playerid";
+                }
                 $somethingSet = false;
                 if (isset($_POST["strongFoot"])) {
                     if ($_POST["strongFoot"] != "") {
