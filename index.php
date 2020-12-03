@@ -175,6 +175,7 @@ if (mysqli_connect_errno()) {
                     INNER JOIN club ON player.playerid = club.playerid";
                 }
                 $somethingSet = false;
+                /*
                 if (isset($_POST["strongFoot"])) {
                     if ($_POST["strongFoot"] != "") {
                         if ($somethingSet == true) {
@@ -213,7 +214,7 @@ if (mysqli_connect_errno()) {
                         $temp = "\"$temp\"";
                         $query .= "position = " . $temp;
                     }
-                }
+                }*/
 
 
                 // learned from: https://www.youtube.com/watch?v=gdEpUPMh63s
