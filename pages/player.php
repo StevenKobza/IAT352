@@ -215,13 +215,34 @@ $playerName = $row_basic['playerName'];
                 }
                 $query = "INSERT INTO faves(userid, playerid) VALUES ($userID, $playerId)";
                 if (!$connection->query($query)) {
-                    echo "creation failed: (" . $connection->errno . ") " . $connection->error;
+                    if ($connection->errno == 1062) {
+                        echo "You've already saved them!";
+                    }
                 }
-                
+            }
+            if (isset($_POST["unFave"])) {
+                $tempUN = $_SESSION["username"];
+                $getUserIDQuery = "SELECT user.userid FROM user WHERE user.username = '$tempUN'";
+                if (!$connection->query($getUserIDQuery)) {
+                    echo "creation failed: (" . $connection->errno . ") " . $connection->error;
+                } else {
+                    $result = $connection->query($getUserIDQuery);
+                }
+                while ($rows = $result->fetch_assoc()) {
+                    $userID = $rows["userid"];
+                }
+                $query = "DELETE FROM faves WHERE faves.userid = $userID AND faves.playerid = $playerId";
+                if (!$connection->query($query)) {
+                    if ($connection->errno == 1062) {
+                        echo "You've already saved them!";
+                    }
+                    //echo "creation failed: (" . $connection->errno . ") " . $connection->error;
+                }
             }
             echo "<h2>Add player to your collection</h2>";
             echo "<form method = 'post'>";
             echo "<input type = 'submit' name = 'Fave' class = 'fave' value = 'Fave'>";
+            echo "<input type = 'submit' name = 'unFave' class = 'fave' value = 'Unfave'>";
             
             //echo '<a class="fave" id = "fave" href="#">Fave</a>';
         }
