@@ -164,104 +164,44 @@ $playerName = $row_basic['playerName'];
                     yellow: between 2 and 3
                     green: 4 and more 
                 */
-                    
 
-                if ($pace <= 50) {
-                    echo "<div class='low'>";
-                } else if ($pace > 50 && $pace <= 80) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
+                function categorize100s($stat, $name) {
+                    if ($stat <= 50) {
+                        echo "<div class='low'>";
+                    } else if ($stat > 50 && $stat <= 80) {
+                        echo "<div class='medium'>";
+                    } else {
+                        echo "<div class='high'>";
+                    }
+                    echo     "<h2> $name </h2>";
+                    echo     "<h3> $stat </h3>";
+                    echo  "</div>";
                 }
-                echo     "<h2> PACE </h2>";
-                echo     "<h3> $pace </h3>";
-                echo  "</div>";
 
-
-
-                if ($shooting <= 50) {
-                    echo "<div class='low'>";
-                } else if ($shooting > 50 && $shooting <= 80) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
+                function categorize5s($stat, $name) {
+                    if ($stat <= 1) {
+                        echo "<div class='low'>";
+                    } else if ($stat > 1 && $stat < 4) {
+                        echo "<div class='medium'>";
+                    } else {
+                        echo "<div class='high'>";
+                    }
+                    echo     "<h2> $name </h2>";
+                    echo     "<h3> $stat </h3>";
+                    echo  "</div>";
                 }
-                echo     "<h2> SHOOTING </h2>";
-                echo     "<h3> $shooting </h3>";
-                echo  "</div>";
 
 
-
-                if ($passing <= 50) {
-                    echo "<div class='low'>";
-                } else if ($passing > 50 && $passing <= 80) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
-                }
-                echo     "<h2> PASSING </h2>";
-                echo     "<h3> $passing </h3>";
-                echo  "</div>";
-
-
-                if ($dribbling <= 50) {
-                    echo "<div class='low'>";
-                } else if ($dribbling > 50 && $dribbling <= 80) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
-                }
-                echo     "<h2> DRIBBLING </h2>";
-                echo     "<h3> $dribbling </h3>";
-                echo  "</div>";
-
-
-                if ($defense <= 50) {
-                    echo "<div class='low'>";
-                } else if ($defense > 50 && $defense <= 80) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
-                }
-                echo     "<h2> DEFENSE </h2>";
-                echo     "<h3> $defense </h3>";
-                echo  "</div>";
-
-
-                if ($physical <= 50) {
-                    echo "<div class='low'>";
-                } else if ($physical > 50 && $physical <= 80) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
-                }
-                echo     "<h2> PHYSICAL </h2>";
-                echo     "<h3> $physical </h3>";
-                echo  "</div>";
-
-
-                if ($weakFoot <= 1) {
-                    echo "<div class='low'>";
-                } else if ($weakFoot > 1 && $weakFoot < 4) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
-                }
-                echo     "<h2> WEAK FOOT </h2>";
-                echo     "<h3> $weakFoot </h3>";
-                echo  "</div>";
-
-
-                if ($skillMoves <= 1) {
-                    echo "<div class='low'>";
-                } else if ($skillMoves > 1 && $skillMoves < 4) {
-                    echo "<div class='medium'>";
-                } else {
-                    echo "<div class='high'>";
-                }
-                echo     "<h2> SKILL MOVES </h2>";
-                echo     "<h3> $skillMoves </h3>";
-                echo  "</div>";
+                // call color functions
+                categorize100s($pace, 'PACE');
+                categorize100s($shooting, 'SHOOTING');
+                categorize100s($passing, 'PASSING');
+                categorize100s($dribbling, 'DRIBBLING');
+                categorize100s($defense, 'DEFENSE');
+                categorize100s($physical, 'PHYSICAL');
+                                
+                categorize5s($weakFoot, 'WEAK FOOT');
+                categorize5s($skillMoves, 'SKILL MOVES');
             }
 
             ?>
