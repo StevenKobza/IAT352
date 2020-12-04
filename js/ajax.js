@@ -43,9 +43,9 @@ function changePage(str, location) {
         //p = what to filter by
         //t = which column to filter
         //b = base location in folder or not
-        xhttp.open("GET", "data/getPlayers.php?p=" + oldStr + "&t=" + oldType, true);
+        xhttp.open("GET", "data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&page=" + str, true);
         } else {
-            xhttp.open("GET", "../data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&b=" + "n", true);
+            xhttp.open("GET", "../data/getPlayers.php?p=" + oldStr + "&t=" + oldType + + "&page=" + str + "&b=" + "n", true);
         }
     xhttp.send();
 }
