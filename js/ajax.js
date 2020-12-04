@@ -7,9 +7,6 @@ function filter(str, type) {
     
     var link = document.getElementById("list");
     let xhttp;
-    if (str == "") {
-        return;
-    }
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -31,9 +28,6 @@ function changePage(str) {
     var table = document.getElementById("table");
     var link = document.getElementById("list");
     let xhttp;
-    if (str == "") {
-        return;
-    }
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

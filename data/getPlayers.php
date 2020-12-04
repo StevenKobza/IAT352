@@ -23,14 +23,19 @@
         INNER JOIN club ON player.playerid = club.playerid";
     }
     
-    $temp = "'". $_GET['p'] . "'";
-    if ($_GET["t"] == "position") {
+    if (isset($_GET["p"])) {
+        if ($_GET["p"] == "") {
+
+        }
+        $temp = "'". $_GET['p'] . "'";
+    }
+    if ($_GET["t"] == "position" && $_GET["p"] != "") {
         $query .= " WHERE position = " . "$temp";
     } 
-    if ($_GET["t"] == "workRate") {
+    else if ($_GET["t"] == "workRate" && $_GET["p"] != "") {
         $query .= " WHERE workRates = " . "$temp";
     }
-    if ($_GET["t"] == "strongFoot") {
+    else if ($_GET["t"] == "strongFoot" && $_GET["p"] != "") {
         $query .= " WHERE strongFoot = " . "$temp";
     }
 
