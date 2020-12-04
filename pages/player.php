@@ -341,19 +341,6 @@ $playerName = $row_basic['playerName'];
         }
         ?>
         <script src="../js/faves.js"></script>
-
-
-
-
-
-
-
     </main>
-
-
-
-
-
 </body>
-
 </html>

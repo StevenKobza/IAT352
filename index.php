@@ -181,17 +181,6 @@ if (mysqli_connect_errno()) {
         echo $link;
         ?>
         </div>
-
-
-
-
-
     </main>
-
-
-
-
-
 </body>
-
 </html>
