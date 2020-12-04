@@ -55,7 +55,7 @@ $row_basic = mysqli_fetch_assoc($query_basic);
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
-                <li><a href="./players.php">Players</a></li>
+                <li><a href="../players.php">Players</a></li>
                 <li><a href="./clubs.php">Clubs</a></li>
                 <li><a href="./leagues.php">Leagues</a></li>
                 <li><a href="./position.php">Position</a></li>

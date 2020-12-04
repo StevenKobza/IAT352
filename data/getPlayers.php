@@ -16,16 +16,9 @@
     } else {
         $temp = "n";
     }
-    if (isset($_SESSION["username"]) && $temp == "y") {
-        $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot
-        FROM ((faves 
-        INNER JOIN player ON player.playerid = faves.playerid)
-        INNER JOIN club ON faves.playerid = club.playerid)";
-    } else {
-        $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot 
-        FROM player 
-        INNER JOIN club ON player.playerid = club.playerid";
-    }
+    $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot 
+    FROM player 
+    INNER JOIN club ON player.playerid = club.playerid";
     
     if (isset($_GET["p"])) {
         if ($_GET["p"] == "") {
@@ -66,7 +59,7 @@
     $number_of_pages = ceil($number_of_results / $results_per_page);
     $_SESSION["numPage"] = $number_of_pages;
 
-    echo $_GET["page"];
+    //echo $_GET["page"];
     if (!isset($_GET['page'])) {
         $page = 1;
     } else {

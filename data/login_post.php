@@ -54,7 +54,7 @@ if (!isset($_SESSION["started"])) {
                 <input class="menu-btn" type="checkbox" id="menu-btn" />
                 <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
                 <ul class="menu">
-                    <li><a href="../pages/players.php">Players</a></li>
+                    <li><a href="../players.php">Players</a></li>
                     <li><a href="../pages/clubs.php">Clubs</a></li>
                     <li><a href="../pages/leagues.php">Leagues</a></li>
                     <li><a href="../pages/position.php">Position</a></li>

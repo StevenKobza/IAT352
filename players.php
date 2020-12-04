@@ -7,7 +7,7 @@ if (!isset($_SESSION["started"])) {
 }
 
 // database connection
-include("../phpData/dbconnect.php");
+include("./phpData/dbconnect.php");
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -27,32 +27,32 @@ if (mysqli_connect_errno()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
     <title>FIFA 21 - Players</title>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-    <script src="../js/ajax.js"></script>
+    <script src="./js/ajax.js"></script>
 </head>
 
 <body>
 
     <header class="header">
         <nav>
-            <a href="../index.php"><img src="../img/logo.png" alt="FIFA 21 logo" class="logo"></a>
+            <a href="./index.php"><img src="./img/logo.png" alt="FIFA 21 logo" class="logo"></a>
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
-                <li><a href="../pages/players.php">Players</a></li>
-                <li><a href="../pages/clubs.php">Clubs</a></li>
-                <li><a href="../pages/leagues.php">Leagues</a></li>
-                <li><a href="../pages/position.php">Position</a></li>
+                <li><a href="./players.php">Players</a></li>
+                <li><a href="./pages/clubs.php">Clubs</a></li>
+                <li><a href="./pages/leagues.php">Leagues</a></li>
+                <li><a href="./pages/position.php">Position</a></li>
                 <?php
                 // display username on navbar if user is logged in
                 if (isset($_SESSION["username"])) {
-                    echo '<li> <a href = "../pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
-                    echo '<li> <a href = "../data/log_out_post.php">Log Out</a></li>';
+                    echo '<li> <a href = "./pages/userdetail.php" id="user">' . $_SESSION["username"] . '</a></li>';
+                    echo '<li> <a href = "./data/log_out_post.php">Log Out</a></li>';
                 } else {
-                    echo '<li><a href="../pages/login.php">Login</a></li>';
-                    echo '<li><a href="../pages/sign-up.php">Sign up</a></li>';
+                    echo '<li><a href="./pages/login.php">Login</a></li>';
+                    echo '<li><a href="./pages/sign-up.php">Sign up</a></li>';
                 }
 
 
@@ -181,10 +181,10 @@ if (mysqli_connect_errno()) {
                   if ($result->num_rows > 0) {
                       while ($row = $result->fetch_assoc()) {
                           echo "<tr>";
-                          echo '<th scope = "row"><img src = "../img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
+                          echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
   
                           // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
-                          echo "<td> <a href='../pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+                          echo "<td> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
                           echo '<td>' . $row["cardRating"] . "</td>";
                           echo "<td>" . $row["position"] . "</td>";
                           echo "<td>" . $row["clubname"] . "</td>";
@@ -209,13 +209,13 @@ if (mysqli_connect_errno()) {
               $link = "";
               if ($page > 1)         // show 1 if on page 2 and after
               {
-                $link .= "<button id = 'pagination' class = 'pagination' onclick = \"changePage(this.value, 'pages')\" value = 1>1</button>";
+                $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value) value = 1>1</button>";
                   //$link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
               }
               // create links for rest of the pages and add page number based on for-loop index
               for ($x = $page; $x <= $number_of_pages; $x++) {
                   if ($counter < $limit)
-                  $link .= "<button id = 'pagination' class='pagination' onclick = \"changePage(this.value, 'pages')\" value = " . $x . ">" . $x . "</button>";
+                  $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value) value = " . $x . ">" . $x . "</button>";
                       //\"?page=" . $x . "\">" . $x . " </a>";
   
                   $counter++;
@@ -223,7 +223,7 @@ if (mysqli_connect_errno()) {
               // add dots between pages if the page number is less than the total number of pages minus maximum number of pagination numbers allowed, divided by two
               if ($page < $number_of_pages - ($limit / 2)) {
                   
-                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = \"changePage(this.value, 'pages')\" value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value) value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
                   //href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
               }
           }

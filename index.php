@@ -44,7 +44,7 @@ if (mysqli_connect_errno()) {
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <ul class="menu">
-                <li><a href="./pages/players.php">Players</a></li>
+                <li><a href="./players.php">Players</a></li>
                 <li><a href="./pages/clubs.php">Clubs</a></li>
                 <li><a href="./pages/leagues.php">Leagues</a></li>
                 <li><a href="./pages/position.php">Position</a></li>
@@ -71,19 +71,19 @@ if (mysqli_connect_errno()) {
 
     <main>
 
-        <div class="filter">
+        <!--<div class="filter">
 
-            <?php
+            <?php/*
             
             // queries for displaying distinct values for each 
             $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
             $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
-            ?>
+            */?>
             <label for="position">Position</label>
             <select name="position" id="position" onchange="filter(this.value, 'position', 'base')">
                 <option value="">Select One</option>
-                <?php
+                <?php/*
                 // populate position filter with distinct position values and if selected, keep the selected value
                 while ($rows = $positionResult->fetch_assoc()) {
                     $position = $rows['position'];
@@ -96,12 +96,12 @@ if (mysqli_connect_errno()) {
                     echo $position;
                     echo "</option>";
                 }
-                ?>
+                */?>
                 </select>
                 <label for="workRate">Work Rate</label>
                 <select name="workRate" id="workRate" onchange="filter(this.value, 'workRate', 'base')">
                     <option value="">Select One</option>
-                    <?php
+                    <?php/*
                     // populate workRate filter with distinct values and if selected, keep the selected value
                     while ($rows = $workRateResult->fetch_assoc()) {
                         $workRate = $rows['workRates'];
@@ -114,12 +114,12 @@ if (mysqli_connect_errno()) {
                         echo $workRate;
                         echo "</option>";
                     }
-                    ?>
+                    */?>
                 </select>
                 <label for="strongFoot">Strong Foot</label>
                 <select name="strongFoot" id="strongFoot" onchange="filter(this.value, 'strongFoot', 'base')">
                     <option value="">Select One</option>
-                    <?php
+                    <?php/*
                     // populate strongFoot filter with distinct values and if selected, keep the selected value
                     while ($rows = $strongFootResult->fetch_assoc()) {
                         $strongFoot = $rows['strongFoot'];
@@ -132,11 +132,11 @@ if (mysqli_connect_errno()) {
                         echo $strongFoot;
                         echo "</option>";
                     }
-                    ?>
+                    */?>
                 </select>
             </form>
 
-        </div>
+        </div>-->
 
 
         <table class="table" id = "table">
