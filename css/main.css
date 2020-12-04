@@ -618,4 +618,9 @@ label {
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
+
+a .position-box {
+  color: white;
+  text-decoration: none;
+}
 /*# sourceMappingURL=main.css.map */
