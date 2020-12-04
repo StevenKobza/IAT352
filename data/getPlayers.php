@@ -12,7 +12,7 @@
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
     }
 
-    if (isset($_SESSION["username"])) {
+    if (isset($_SESSION["username"]) && $_GET["f"] == "y") {
         $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot
         FROM ((faves 
         INNER JOIN player ON player.playerid = faves.playerid)
