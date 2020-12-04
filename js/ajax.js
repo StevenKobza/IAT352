@@ -37,16 +37,25 @@ function changePage(str, location) {
             var temp = this.responseText.split("IAT352");
             table.innerHTML = temp[0];
             link.innerHTML = temp[1];
+            console.log(temp[1]);
+            console.log(link.innerHTML);
         }
     };
+    
+    if (oldStr  == undefined|| oldType == undefined) {
+        oldStr = "";
+        oldType = "";
+    }
     if (location == "base") {
         //p = what to filter by
         //t = which column to filter
         //b = base location in folder or not
+        console.log("data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&page=" + str);
         xhttp.open("GET", "data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&page=" + str, true);
-        } else {
-            xhttp.open("GET", "../data/getPlayers.php?p=" + oldStr + "&t=" + oldType + + "&page=" + str + "&b=" + "n", true);
-        }
+    } else {
+        console.log("../data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&page=" + str);
+        xhttp.open("GET", "../data/getPlayers.php?p=" + oldStr + "&t=" + oldType + + "&page=" + str + "&b=" + "n", true);
+    }
     xhttp.send();
 }
 

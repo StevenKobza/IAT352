@@ -209,13 +209,13 @@ if (mysqli_connect_errno()) {
               $link = "";
               if ($page > 1)         // show 1 if on page 2 and after
               {
-                  $link .= "<button id = 'pagination' class = 'pagination' onclick = \"changePage(this.value, 'pages')\" value = 1>1</button>";
+                $link .= "<button id = 'pagination' class = 'pagination' onclick = \"changePage(this.value, 'pages')\" value = 1>1</button>";
                   //$link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
               }
               // create links for rest of the pages and add page number based on for-loop index
               for ($x = $page; $x <= $number_of_pages; $x++) {
                   if ($counter < $limit)
-                      $link .= "<button id = 'pagination' class='pagination' onclick = \"changePage(this.value, 'pages')\" value = " . $x . ">" . $x . "</button>";
+                  $link .= "<button id = 'pagination' class='pagination' onclick = \"changePage(this.value, 'pages')\" value = " . $x . ">" . $x . "</button>";
                       //\"?page=" . $x . "\">" . $x . " </a>";
   
                   $counter++;
@@ -223,7 +223,7 @@ if (mysqli_connect_errno()) {
               // add dots between pages if the page number is less than the total number of pages minus maximum number of pagination numbers allowed, divided by two
               if ($page < $number_of_pages - ($limit / 2)) {
                   
-                  $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = \"changePage(this.value, 'pages')\" value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = \"changePage(this.value, 'pages')\" value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
                   //href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
               }
           }

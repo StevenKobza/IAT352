@@ -11,8 +11,12 @@
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
     }
-
-    if (isset($_SESSION["username"]) && $_GET["f"] == "y") {
+    if (isset($_GET["f"])) {
+        $temp = $_GET["f"];
+    } else {
+        $temp = "n";
+    }
+    if (isset($_SESSION["username"]) && $temp == "y") {
         $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot
         FROM ((faves 
         INNER JOIN player ON player.playerid = faves.playerid)
@@ -26,8 +30,9 @@
     if (isset($_GET["p"])) {
         if ($_GET["p"] == "") {
 
-        }
+        } else {
         $temp = "'". $_GET['p'] . "'";
+        }
     }
     if ($_GET["t"] == "position" && $_GET["p"] != "") {
         $query .= " WHERE position = " . "$temp";
@@ -61,6 +66,7 @@
     $number_of_pages = ceil($number_of_results / $results_per_page);
     $_SESSION["numPage"] = $number_of_pages;
 
+    echo $_GET["page"];
     if (!isset($_GET['page'])) {
         $page = 1;
     } else {
