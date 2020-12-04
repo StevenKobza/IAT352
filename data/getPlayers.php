@@ -88,10 +88,18 @@
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
+            if (isset($_GET["b"])) {
+                echo '<th scope = "row"><img src = "../img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
+            } else {
+                echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
+            }
 
             // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
+            if (isset($_GET["b"])) {
+                echo "<td> <a href='../pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+            } else {
             echo "<td> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+            }
             echo '<td>' . $row["cardRating"] . "</td>";
             echo "<td>" . $row["position"] . "</td>";
             echo "<td>" . $row["clubname"] . "</td>";

@@ -1,6 +1,6 @@
 var oldStr, oldType;
 
-function filter(str, type) {
+function filter(str, type, location) {
     oldStr = str;
     oldType = type;
     var table = document.getElementById("table");
@@ -12,16 +12,22 @@ function filter(str, type) {
         if (this.readyState == 4 && this.status == 200) {
             var temp = this.responseText.split("IAT352");
             table.innerHTML = temp[0];
-            console.log(temp);
             link.innerHTML = temp[1];
         }
     };
+    if (location == "base") {
+        //p = what to filter by
+        //t = which column to filter
+        //b = base location in folder or not
     xhttp.open("GET", "data/getPlayers.php?p=" + str + "&t=" + type, true);
+    } else {
+        xhttp.open("GET", "../data/getPlayers.php?p=" + str + "&t=" + type + "&b=" + "n", true);
+    }
     xhttp.send();
 }
 
 
-function changePage(str) {
+function changePage(str, location) {
     var table = document.getElementById("table");
     var link = document.getElementById("list");
     let xhttp;
@@ -30,11 +36,17 @@ function changePage(str) {
         if (this.readyState == 4 && this.status == 200) {
             var temp = this.responseText.split("IAT352");
             table.innerHTML = temp[0];
-            console.log(temp);
             link.innerHTML = temp[1];
         }
     };
-    xhttp.open("GET", "data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&page=" + str, true);
+    if (location == "base") {
+        //p = what to filter by
+        //t = which column to filter
+        //b = base location in folder or not
+        xhttp.open("GET", "data/getPlayers.php?p=" + str + "&t=" + type, true);
+        } else {
+            xhttp.open("GET", "../data/getPlayers.php?p=" + str + "&t=" + type + "&b=" + "n", true);
+        }
     xhttp.send();
 }
 
