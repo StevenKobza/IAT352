@@ -32,6 +32,8 @@ if (mysqli_connect_errno()) {
         src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
         crossorigin="anonymous"></script>
+    <script src = "js/ajax.js"></script>
+    <script src = "https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
 </head>
 
 <body>
@@ -79,77 +81,66 @@ if (mysqli_connect_errno()) {
             $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
             ?>
-
-            <form action="" class="filterForm" method="post">
-                <fieldset class="position">
-                    <label for="position">Position</label>
-                    <select name="position" id="position">
-                        <option value="">Select One</option>
-                        <?php
-                        // populate position filter with distinct position values and if selected, keep the selected value
-                        while ($rows = $positionResult->fetch_assoc()) {
-                            $position = $rows['position'];
-                            $selected = '';
-                            if (!empty($_POST['position']) && $_POST['position'] == $position) {
-                                $selected = ' selected="selected"';
-                            }
-                            echo "<option value='$position'" . $selected;
-                            echo ">";
-                            echo $position;
-                            echo "</option>";
+            <label for="position">Position</label>
+            <select name="position" id="position" onchange="filter(this.value, 'position')">
+                <option value="">Select One</option>
+                <?php
+                // populate position filter with distinct position values and if selected, keep the selected value
+                while ($rows = $positionResult->fetch_assoc()) {
+                    $position = $rows['position'];
+                    $selected = '';
+                    if (!empty($_POST['position']) && $_POST['position'] == $position) {
+                        $selected = ' selected="selected"';
+                    }
+                    echo "<option value='$position'" . $selected;
+                    echo ">";
+                    echo $position;
+                    echo "</option>";
+                }
+                ?>
+                </select>
+                <label for="workRate">Work Rate</label>
+                <select name="workRate" id="workRate" onchange="filter(this.value, 'workRate')">
+                    <option value="">Select One</option>
+                    <?php
+                    // populate workRate filter with distinct values and if selected, keep the selected value
+                    while ($rows = $workRateResult->fetch_assoc()) {
+                        $workRate = $rows['workRates'];
+                        $selected = '';
+                        if (!empty($_POST['workRate']) && $_POST['workRate'] == $workRate) {
+                            $selected = ' selected="selected"';
                         }
-                        ?>
-                    </select>
-                </fieldset>
-
-                <fieldset class="workRate">
-                    <label for="workRate">Work Rate</label>
-                    <select name="workRate" id="workRate">
-                        <option value="">Select One</option>
-                        <?php
-                        // populate workRate filter with distinct values and if selected, keep the selected value
-                        while ($rows = $workRateResult->fetch_assoc()) {
-                            $workRate = $rows['workRates'];
-                            $selected = '';
-                            if (!empty($_POST['workRate']) && $_POST['workRate'] == $workRate) {
-                                $selected = ' selected="selected"';
-                            }
-                            echo "<option value='$workRate'" . $selected;
-                            echo ">";
-                            echo $workRate;
-                            echo "</option>";
+                        echo "<option value='$workRate'" . $selected;
+                        echo ">";
+                        echo $workRate;
+                        echo "</option>";
+                    }
+                    ?>
+                </select>
+                <label for="strongFoot">Strong Foot</label>
+                <select name="strongFoot" id="strongFoot" onchange="filter(this.value, 'strongFoot')">
+                    <option value="">Select One</option>
+                    <?php
+                    // populate strongFoot filter with distinct values and if selected, keep the selected value
+                    while ($rows = $strongFootResult->fetch_assoc()) {
+                        $strongFoot = $rows['strongFoot'];
+                        $selected = '';
+                        if (!empty($_POST['strongFoot']) && $_POST['strongFoot'] == $strongFoot) {
+                            $selected = ' selected="selected"';
                         }
-                        ?>
-                    </select>
-                </fieldset>
-
-                <fieldset class="strongFoot">
-                    <label for="strongFoot">Strong Foot</label>
-                    <select name="strongFoot" id="strongFoot">
-                        <option value="">Select One</option>
-                        <?php
-                        // populate strongFoot filter with distinct values and if selected, keep the selected value
-                        while ($rows = $strongFootResult->fetch_assoc()) {
-                            $strongFoot = $rows['strongFoot'];
-                            $selected = '';
-                            if (!empty($_POST['strongFoot']) && $_POST['strongFoot'] == $strongFoot) {
-                                $selected = ' selected="selected"';
-                            }
-                            echo "<option value='$strongFoot'" . $selected;
-                            echo ">";
-                            echo $strongFoot;
-                            echo "</option>";
-                        }
-                        ?>
-                    </select>
-                </fieldset>
-                <input type="submit">
+                        echo "<option value='$strongFoot'" . $selected;
+                        echo ">";
+                        echo $strongFoot;
+                        echo "</option>";
+                    }
+                    ?>
+                </select>
             </form>
 
         </div>
 
 
-        <table class="table">
+        <table class="table" id = "table">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -174,7 +165,7 @@ if (mysqli_connect_errno()) {
                     FROM player 
                     INNER JOIN club ON player.playerid = club.playerid";
                 }
-                $somethingSet = false;
+                //$somethingSet = false;
                 /*
                 if (isset($_POST["strongFoot"])) {
                     if ($_POST["strongFoot"] != "") {
@@ -228,6 +219,7 @@ if (mysqli_connect_errno()) {
 
                 // determine number of total pages available and round it
                 $number_of_pages = ceil($number_of_results / $results_per_page);
+                $_SESSION["numPage"] = $number_of_pages;
 
                 // determine which page number visitor is currently on
                 if (!isset($_GET['page'])) {
@@ -261,6 +253,7 @@ if (mysqli_connect_errno()) {
                 ?>
             </tbody>
         </table>
+        <div id = "list">
         <?php
 
         // learned from: https://stackoverflow.com/questions/28716904/limit-pages-numbers-on-php-pagination
@@ -273,23 +266,28 @@ if (mysqli_connect_errno()) {
             $link = "";
             if ($page > 1)         // show 1 if on page 2 and after
             {
-                $link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
+                $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value) value = 1>1</button>";
+                //$link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
             }
             // create links for rest of the pages and add page number based on for-loop index
             for ($x = $page; $x <= $number_of_pages; $x++) {
                 if ($counter < $limit)
-                    $link .= "<a class='pagination' href=\"?page=" . $x . "\">" . $x . " </a>";
+                    $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value) value = " . $x . ">" . $x . "</button>";
+                    //\"?page=" . $x . "\">" . $x . " </a>";
 
                 $counter++;
             }
             // add dots between pages if the page number is less than the total number of pages minus maximum number of pagination numbers allowed, divided by two
             if ($page < $number_of_pages - ($limit / 2)) {
-                $link .= "... " . "<a class='pagination' href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
+                
+                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value) value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                //href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
             }
         }
 
         echo $link;
         ?>
+        </div>
 
 
 
