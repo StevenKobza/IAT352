@@ -113,7 +113,7 @@
             if (isset($_GET["b"])) {
                 echo "<td> <a href='../pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
             } else {
-            echo "<td> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+            echo "<td class='name-table'> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
             }
             echo '<td>' . $row["cardRating"] . "</td>";
             echo "<td>" . $row["position"] . "</td>";

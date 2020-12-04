@@ -48,7 +48,12 @@ function getresult(url) {
 function changePage(str) {
     var table = document.getElementById("table");
     var link = document.getElementById("list");
+    //Position, workRate and Strongfoot are all Selects so we can grab their values
+    var position = document.getElementById("position");
+    var workRate = document.getElementById("workRate");
+    var strongFoot = document.getElementById("strongFoot");
     let xhttp;
+    let output = "?pos=" + position.value + "&work=" + workRate.value + "&strong=" + strongFoot.value;
     if (str == "") {
         return;
     }
@@ -60,6 +65,6 @@ function changePage(str) {
             link.innerHTML = temp[1];
         }
     };
-    xhttp.open("GET", "data/getPlayers.php?p=" + oldStr + "&t=" + oldType + "&page=" + str, true);
+    xhttp.open("GET", "data/getPlayers.php" + output + "&page=" + str, true);
     xhttp.send();
 }
