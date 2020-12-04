@@ -24,7 +24,6 @@ function filter(str, type) {
     var strongFoot = document.getElementById("strongFoot");
 
     let output = "?pos=" + position.value + "&work=" + workRate.value + "&strong=" + strongFoot.value;
-    console.log(output);
 
     var link = document.getElementById("list");
     let xhttp;
@@ -53,7 +52,12 @@ function changePage(str) {
     var workRate = document.getElementById("workRate");
     var strongFoot = document.getElementById("strongFoot");
     let xhttp;
-    let output = "?pos=" + position.value + "&work=" + workRate.value + "&strong=" + strongFoot.value;
+    let output = "";
+    if (position != null && workRate != null && strongFoot != null) {
+        output = "?pos=" + position.value + "&work=" + workRate.value + "&strong=" + strongFoot.value;
+    } else {
+        output = "?pos=&work=&strong=";
+    }
     if (str == "") {
         return;
     }
