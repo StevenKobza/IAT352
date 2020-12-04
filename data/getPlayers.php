@@ -121,21 +121,32 @@
             $link = "";
             if ($page > 1)         // show 1 if on page 2 and after
             {
-                $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value) value = 1>1</button>";
+                if (isset($_GET["b"])) {
+                $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value, 'pages') value = 1>1</button>";
+                } else {
+                    $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value, 'base') value = 1>1</button>";
+                }
                 //$link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
             }
             // create links for rest of the pages and add page number based on for-loop index
             for ($x = $page; $x <= $_SESSION["numPage"]; $x++) {
                 if ($counter < $limit)
-                    $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value) value = " . $x . ">" . $x . "</button>";
+                    if(isset($_GET["b"])) {
+                    $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value, 'pages') value = " . $x . ">" . $x . "</button>";
+                    } else {
+                        $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value, 'base') value = " . $x . ">" . $x . "</button>";
+                    }
                     //\"?page=" . $x . "\">" . $x . " </a>";
 
                 $counter++;
             }
             // add dots between pages if the page number is less than the total number of pages minus maximum number of pagination numbers allowed, divided by two
             if ($page < $_SESSION["numPage"] - ($limit / 2)) {
-                
-                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value) value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                if (isset($_GET["b"])) {
+                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value, 'pages') value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                } else {
+                    $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value, 'base') value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                }
                 //href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
             }
         }
