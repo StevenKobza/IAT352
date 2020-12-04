@@ -84,7 +84,7 @@ if (mysqli_connect_errno()) {
         echo '<div class="position-container">';
         while ($rows = $positionResult->fetch_assoc()) {
             $position = trim($rows['position'], " ");       // removing extra space before position name
-            echo "<a href = ../pages/positiondetail.php?id=". $position . ">";
+
             echo '<div class="position-box"';
 
             if (in_array($position, $defencePositions)) {          // check if poisiton is defence
@@ -94,7 +94,7 @@ if (mysqli_connect_errno()) {
             } else {                                                  // position is forward
                 echo ' id="forward" >';
             }
-            echo  $position . '</div></a>';
+            echo $position . '</div>';
         }
         echo '</div>';
         ?>

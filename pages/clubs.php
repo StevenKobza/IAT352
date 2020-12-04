@@ -28,11 +28,6 @@ if (mysqli_connect_errno()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <title>FIFA 21 — Clubs</title>
-    <script
-        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-        crossorigin="anonymous"></script>
-    <script src = "../js/ajax.js"></script>
 </head>
 
 <body>
@@ -67,13 +62,20 @@ if (mysqli_connect_errno()) {
 
 
     <main>
+        <form action = "" class = filterForm method = "post">
             
             <?php 
             //If it already exists, then just add the original search as a placeholder
-            $temp = '<input class="club-search" type = "search" name = "search" class = "searchBox" oninput = getSearch(this.value)>';
+            $temp = '<input class="club-search" type = "text" name = "search" class = "searchBox"';
+            if (isset($_POST["search"]) && $_POST["search"] != "") {
+                $temp .= "placeholder = " . $_POST["search"];
+            }
+            $temp .= ">";
             echo $temp;
             ?>
-        <table class="table" id = "clubTable">
+            <input type = 'submit'>
+        </form>
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">CLUB</th>
