@@ -18,6 +18,7 @@ function filter(str, type) {
     oldStr = str;
     oldType = type;
     var table = document.getElementById("table");
+    //Position, workRate and Strongfoot are all Selects so we can grab their values
     var position = document.getElementById("position");
     var workRate = document.getElementById("workRate");
     var strongFoot = document.getElementById("strongFoot");

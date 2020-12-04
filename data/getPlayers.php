@@ -51,15 +51,6 @@
         }
         $query .= " strongFoot = " . "$temp";
     }
-    /*if ($_GET["t"] == "position" && $_GET["p"] != "") {
-        $query .= " WHERE position = " . "$temp";
-    } 
-    else if ($_GET["t"] == "workRate" && $_GET["p"] != "") {
-        $query .= " WHERE workRates = " . "$temp";
-    }
-    else if ($_GET["t"] == "strongFoot" && $_GET["p"] != "") {
-        $query .= " WHERE strongFoot = " . "$temp";
-    }*/
 
     //echo $query;
     // learned from: https://www.youtube.com/watch?v=gdEpUPMh63s
