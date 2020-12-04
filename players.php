@@ -77,6 +77,7 @@ if (mysqli_connect_errno()) {
             $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
             ?>
+            <div>
             <label for="position">Position</label>
             <select name="position" id="position" onchange="filter(this.value, 'position', 'pages')">
                 <option value="">Select One</option>
@@ -95,6 +96,10 @@ if (mysqli_connect_errno()) {
                 }
                 ?>
             </select>
+            </div>
+
+
+            <div>
             <label for="workRate">Work Rate</label>
             <select name="workRate" id="workRate" onchange="filter(this.value, 'workRate', 'pages')">
                 <option value="">Select One</option>
@@ -113,6 +118,10 @@ if (mysqli_connect_errno()) {
                 }
                 ?>
             </select>
+            </div>
+
+
+            <div>
             <label for="strongFoot">Strong Foot</label>
             <select name="strongFoot" id="strongFoot" onchange="filter(this.value, 'strongFoot', 'pages')">
                 <option value="">Select One</option>
@@ -131,6 +140,9 @@ if (mysqli_connect_errno()) {
                 }
                 ?>
             </select>
+            </div>
+
+
             </form>
 
         </div>
@@ -184,7 +196,7 @@ if (mysqli_connect_errno()) {
                           echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
   
                           // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
-                          echo "<td> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+                          echo "<td class='name-table'> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
                           echo '<td>' . $row["cardRating"] . "</td>";
                           echo "<td>" . $row["position"] . "</td>";
                           echo "<td>" . $row["clubname"] . "</td>";

@@ -85,10 +85,8 @@ $playerName = $row_basic['playerName'];
     <main>
 
         <div>
-            <div class="profile">
-                <div class="general-info">
-                    <h2><?php echo $positionId; ?></h2>
-                </div>
+            <div class="position-profile">                
+                    <h2><?php echo $positionId; ?></h2>            
             </div>
 
             <h2>Players</h2>
@@ -149,7 +147,7 @@ $playerName = $row_basic['playerName'];
                             echo '<th scope = "row"><img src = "../img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
 
                             // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
-                            echo "<td> <a href='../pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+                            echo "<td class='name-table'> <a href='../pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
                             echo '<td>' . $row["cardRating"] . "</td>";
                             echo "<td>" . $row["position"] . "</td>";
                             echo "<td>" . $row["clubname"] . "</td>";

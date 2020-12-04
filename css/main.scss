@@ -26,9 +26,10 @@ img {
     max-width: 100%;
 }
 
-.filterForm {
+.filter {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 th {
@@ -42,12 +43,12 @@ th[scope="col"] {
 }
 
 th > img {
-    width: 50px;
+    width: 80px;
     text-align: center;
 }
 
 tr {
-    border-bottom: 1px solid black;    
+    border-bottom: 1px solid black;
 }
 
 td {
@@ -69,14 +70,27 @@ table {
     width: 100%;
 }
 
+.name-table {
+    font-weight: 500;
+}
+
 .pagination {
     display: inline-block;
+    background-color: white;
     color: black;
     text-decoration: none;
-    padding: 0.2em 0.5em;
+    padding: 0.4em 0.7em;
     margin-right: 0.1rem;
     margin-top: 1em;
     border: 1px solid black;
+    cursor: pointer;
+}
+
+.pagination:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
 }
 
 /* HEADER */
@@ -208,8 +222,29 @@ table {
     }
 }
 
+@media (max-width: 832px) {
+    .basic-info {
+        .profile {
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 0.5rem;
+        }
+        .general-stats {
+            border-bottom-left-radius: 0.5rem;
+            border-top-right-radius: 0;        
+        }
+    }
+}
+
 #user {
     color: #2bffc9;
+}
+
+.user-profile {
+    h2 {
+        color: black;
+        font-weight: 600;
+        font-size: 4rem;
+    }
 }
 
 /* BODY */
@@ -337,6 +372,7 @@ fieldset {
 
 label {
     display: block;
+    margin-bottom: 0.2rem;
 }
 
 // POSITION
@@ -352,7 +388,7 @@ label {
     transition: 0.2s;
     color: white;
     padding: 3rem;
-    text-align: center;    
+    text-align: center;
     border-radius: 0.5rem;
 }
 
@@ -397,7 +433,7 @@ label {
 
 .league-box {
     transition: 0.2s;
-    background-color: slateblue;;
+    background-color: slateblue;
     color: white;
     text-align: center;
     border-radius: 0.5rem;
@@ -410,9 +446,8 @@ label {
 
 .league-box:hover {
     transition: 0.2s;
-    background-color: #9a8c98;
+    background-color: #000000;
 }
-
 
 #forward {
     background-color: #4a4e69;
@@ -440,25 +475,39 @@ label {
 
 // PLAYER
 
+.basic-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+    margin-bottom: 5rem;
+}
+
+.specific-title {
+    color: #392047;
+    font-weight: 600;
+}
+
 .profile {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    background-color: #9337f7;
+    padding: 2rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 
     img {
-        width: 10rem;        
+        width: 12rem;
     }
 
     h2 {
         margin-block-start: 0;
         margin-block-end: 0;
         font-weight: 600;
-
     }
 
     p {
         margin-block-start: 0.5rem;
-        color: #808080;
+        color: #260057;
         font-weight: 600;
     }
 }
@@ -469,6 +518,7 @@ label {
     flex-direction: column;
     h2 {
         font-size: 3rem;
+        color: white;
     }
 }
 
@@ -484,11 +534,12 @@ label {
 
 .general-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
     max-width: 60rem;
-    border-radius: 0.5em;
-    background-color: #29265f;
-    margin-bottom: 5em;
+    padding: 1rem;
+    background-color: #1a183b;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 
     div {
         text-align: center;
@@ -513,10 +564,13 @@ label {
     gap: 1em;
     justify-items: center;
     border-radius: 0.5em;
-    background-color: #894fff;
+    background-color: #1e2636;
 
     div {
         text-align: center;
+        border-radius: 0.5em;
+        width: 10rem;
+        height: 10rem;
     }
 
     h2 {
@@ -526,33 +580,72 @@ label {
     }
 
     h3 {
-        color: #2bffc9;
+        color: white;
         font-size: 5em;
         font-weight: 300;
         margin-block-start: 0em;
         margin-block-end: 0em;
     }
-}
 
+    .high {
+        background-color: #4caf50;
+    }
+
+    .medium {
+        background-color: #ffc941;
+    }
+
+    .low {
+        background-color: #d23a12;
+    }
+}
 
 // Club page
 
-.club-search {
-    height: 0.1rem;
-    margin-bottom: 2rem;
+.club-profile,
+.league-profile,
+.position-profile {
+    h2 {
+        font-size: 3rem;
+        font-weight: 600;
+    }
 }
 
+.club-search {
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+}
+
+.filterForm input[type="submit"] {
+    height: 2.5rem;
+    width: 6rem;
+}
 
 // fave button
-.fave {
-    background-color: #F60104;
+#unfave {
+    background-color: #f60104;
     color: white;
-    padding: 0.8rem 1.8rem;
+    padding: 1rem 2rem;
     border-radius: 0.3rem;
     transition: 0.2s;
 }
 
-.fave:hover {
+#unfave:hover {
+    background-color: black;
+    color: white;
+    transition: 0.2s;
+}
+
+#fave {
+    background-color: #007ff7;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.3rem;
+    transition: 0.2s;
+    margin-right: 1rem;
+}
+
+#fave:hover {
     background-color: black;
     color: white;
     transition: 0.2s;

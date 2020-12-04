@@ -69,76 +69,7 @@ if (mysqli_connect_errno()) {
     </div>
 
 
-    <main>
-
-        <!--<div class="filter">
-
-            <?php/*
-            
-            // queries for displaying distinct values for each 
-            $positionResult = mysqli_query($connection, "SELECT DISTINCT position FROM player");
-            $workRateResult = mysqli_query($connection, "SELECT DISTINCT workRates FROM player");
-            $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
-            */?>
-            <label for="position">Position</label>
-            <select name="position" id="position" onchange="filter(this.value, 'position', 'base')">
-                <option value="">Select One</option>
-                <?php/*
-                // populate position filter with distinct position values and if selected, keep the selected value
-                while ($rows = $positionResult->fetch_assoc()) {
-                    $position = $rows['position'];
-                    $selected = '';
-                    if (!empty($_POST['position']) && $_POST['position'] == $position) {
-                        $selected = ' selected="selected"';
-                    }
-                    echo "<option value='$position'" . $selected;
-                    echo ">";
-                    echo $position;
-                    echo "</option>";
-                }
-                */?>
-                </select>
-                <label for="workRate">Work Rate</label>
-                <select name="workRate" id="workRate" onchange="filter(this.value, 'workRate', 'base')">
-                    <option value="">Select One</option>
-                    <?php/*
-                    // populate workRate filter with distinct values and if selected, keep the selected value
-                    while ($rows = $workRateResult->fetch_assoc()) {
-                        $workRate = $rows['workRates'];
-                        $selected = '';
-                        if (!empty($_POST['workRate']) && $_POST['workRate'] == $workRate) {
-                            $selected = ' selected="selected"';
-                        }
-                        echo "<option value='$workRate'" . $selected;
-                        echo ">";
-                        echo $workRate;
-                        echo "</option>";
-                    }
-                    */?>
-                </select>
-                <label for="strongFoot">Strong Foot</label>
-                <select name="strongFoot" id="strongFoot" onchange="filter(this.value, 'strongFoot', 'base')">
-                    <option value="">Select One</option>
-                    <?php/*
-                    // populate strongFoot filter with distinct values and if selected, keep the selected value
-                    while ($rows = $strongFootResult->fetch_assoc()) {
-                        $strongFoot = $rows['strongFoot'];
-                        $selected = '';
-                        if (!empty($_POST['strongFoot']) && $_POST['strongFoot'] == $strongFoot) {
-                            $selected = ' selected="selected"';
-                        }
-                        echo "<option value='$strongFoot'" . $selected;
-                        echo ">";
-                        echo $strongFoot;
-                        echo "</option>";
-                    }
-                    */?>
-                </select>
-            </form>
-
-        </div>-->
-
-
+    <main>        
         <table class="table" id = "table">
             <thead>
                 <tr>
@@ -168,7 +99,12 @@ if (mysqli_connect_errno()) {
                 // learned from: https://www.youtube.com/watch?v=gdEpUPMh63s
                 // pagination
 
-                $results_per_page = 10;
+                if (isset($_SESSION["username"])) {
+                    $results_per_page = 100;
+                }
+                else {
+                    $results_per_page = 10;
+                }
 
                 // find the number of results stored in database
                 $result = $connection->query($query);
@@ -198,7 +134,7 @@ if (mysqli_connect_errno()) {
                         echo '<th scope = "row"><img src = "./img/datasetHeads/' . $row["playerid"] . '.jpg" alt = ""></th>';
 
                         // learned about passing link data to url from here: https://stackoverflow.com/questions/21890086/store-data-of-link-clicked-using-php-and-transferring-it-to-new-page
-                        echo "<td> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
+                        echo "<td class='name-table'> <a href='./pages/player.php?id=" . $row['playerid'] . "'>" . $row['playerName'] . "</a></td>";
                         echo '<td>' . $row["cardRating"] . "</td>";
                         echo "<td>" . $row["position"] . "</td>";
                         echo "<td>" . $row["clubname"] . "</td>";

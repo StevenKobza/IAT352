@@ -81,7 +81,7 @@ $playerName = $row_basic['playerName'];
 
     <main>
 
-        <div>
+        <div class="basic-info">
             <div class="profile">
                 <div class="general-info">
                     <h2><?php echo $playerName; ?></h2>
@@ -90,8 +90,7 @@ $playerName = $row_basic['playerName'];
 
                 </div>
             </div>
-
-            <h2>General</h2>
+            
             <div class="general-stats">
 
                 <?php
@@ -135,7 +134,7 @@ $playerName = $row_basic['playerName'];
 
 
 
-        <h2>Specific</h2>
+        <h2 class="specific-title">Specific Stats</h2>
         <div class="specific-stats">
 
             <?php
@@ -154,47 +153,115 @@ $playerName = $row_basic['playerName'];
                 $skillMoves = $rows['skillMoves'];
 
 
-                echo "<div>
-                            <h2> PACE </h2>
-                            <h3> $pace </h3>
-                        
-                         </div>
+                /* color numbers based on low, medium and high barriers (red, yellow and green)
+                 scale of 100: 
+                    red: 50 or less
+                    yellow: between 51 and 80
+                    green: 80 and more
+                
+                scale of 5:
+                    red: 1 or less
+                    yellow: between 2 and 3
+                    green: 4 and more 
+                */
+                    
 
-                        <div>
-                            <h2> SHOOTING </h2>
-                            <h3> $shooting </h3>
-                        </div>
+                if ($pace <= 50) {
+                    echo "<div class='low'>";
+                } else if ($pace > 50 && $pace <= 80) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> PACE </h2>";
+                echo     "<h3> $pace </h3>";
+                echo  "</div>";
 
-                        <div>
-                            <h2> PASSING </h2>
-                            <h3> $passing </h3>
-                        </div>
 
-                        <div>
-                            <h2> DRIBBLING </h2>
-                            <h3> $dribbling </h3>
-                        </div>
 
-                        <div>
-                            <h2> DEFENSE </h2>
-                            <h3> $defense </h3>
-                        </div>
+                if ($shooting <= 50) {
+                    echo "<div class='low'>";
+                } else if ($shooting > 50 && $shooting <= 80) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> SHOOTING </h2>";
+                echo     "<h3> $shooting </h3>";
+                echo  "</div>";
 
-                        <div>
-                            <h2> PHYSICAL </h2>
-                            <h3> $physical </h3>
-                        </div>
 
-                        <div>
-                            <h2> WEAK FOOT </h2>
-                            <h3> $weakFoot </h3>
-                        </div>
 
-                        <div>
-                            <h2> SKILL MOVES </h2>
-                            <h3> $skillMoves </h3>
-                        </div>
-                    ";
+                if ($passing <= 50) {
+                    echo "<div class='low'>";
+                } else if ($passing > 50 && $passing <= 80) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> PASSING </h2>";
+                echo     "<h3> $passing </h3>";
+                echo  "</div>";
+
+
+                if ($dribbling <= 50) {
+                    echo "<div class='low'>";
+                } else if ($dribbling > 50 && $dribbling <= 80) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> DRIBBLING </h2>";
+                echo     "<h3> $dribbling </h3>";
+                echo  "</div>";
+
+
+                if ($defense <= 50) {
+                    echo "<div class='low'>";
+                } else if ($defense > 50 && $defense <= 80) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> DEFENSE </h2>";
+                echo     "<h3> $defense </h3>";
+                echo  "</div>";
+
+
+                if ($physical <= 50) {
+                    echo "<div class='low'>";
+                } else if ($physical > 50 && $physical <= 80) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> PHYSICAL </h2>";
+                echo     "<h3> $physical </h3>";
+                echo  "</div>";
+
+
+                if ($weakFoot <= 1) {
+                    echo "<div class='low'>";
+                } else if ($weakFoot > 1 && $weakFoot < 4) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> WEAK FOOT </h2>";
+                echo     "<h3> $weakFoot </h3>";
+                echo  "</div>";
+
+
+                if ($skillMoves <= 1) {
+                    echo "<div class='low'>";
+                } else if ($skillMoves > 1 && $skillMoves < 4) {
+                    echo "<div class='medium'>";
+                } else {
+                    echo "<div class='high'>";
+                }
+                echo     "<h2> SKILL MOVES </h2>";
+                echo     "<h3> $skillMoves </h3>";
+                echo  "</div>";
             }
 
             ?>
@@ -239,15 +306,41 @@ $playerName = $row_basic['playerName'];
                     //echo "creation failed: (" . $connection->errno . ") " . $connection->error;
                 }
             }
-            echo "<h2>Add player to your collection</h2>";
-            echo "<form method = 'post'>";
-            echo "<input type = 'submit' name = 'Fave' class = 'fave' value = 'Fave'>";
-            echo "<input type = 'submit' name = 'unFave' class = 'fave' value = 'Unfave'>";
-            
+
+
+            $tempUN = $_SESSION["username"];
+            $getUserIDQuery = "SELECT user.userid FROM user WHERE user.username = '$tempUN'";
+            if (!$connection->query($getUserIDQuery)) {
+                echo "creation failed: (" . $connection->errno . ") " . $connection->error;
+            } else {
+                $result = $connection->query($getUserIDQuery);
+            }
+            while ($rows = $result->fetch_assoc()) {
+                $userID = $rows["userid"];
+            }            
+
+            // check if users have the player as their fave or not and display appropriate buttons
+            $faveQuery = "SELECT * FROM faves WHERE faves.userid = $userID AND faves.playerid = $playerId";
+            $results =$connection->query($faveQuery) or die("Bad Query: $sql_general");
+
+            if (mysqli_num_rows($results) == 1) {
+                // row exists. show the unfave button
+                echo "<h2 class='specific-title'>Remove player from your collection</h2>";
+                echo "<form method = 'post'>";    
+                echo "<input type = 'submit' name = 'unFave' id ='unfave' value = 'Unfave'>";
+            }
+
+            else {
+                // row doesn't exist, show the fave button
+                echo "<h2 class='specific-title'>Add player to your collection</h2>";
+                echo "<form method = 'post'>";    
+                echo "<input type = 'submit' name = 'Fave' id ='fave' value = 'Fave'>";
+            }
+
             //echo '<a class="fave" id = "fave" href="#">Fave</a>';
         }
         ?>
-        <script src = "../js/faves.js"></script>
+        <script src="../js/faves.js"></script>
 
 
 

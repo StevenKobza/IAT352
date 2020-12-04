@@ -27,11 +27,12 @@ img {
   max-width: 100%;
 }
 
-.filterForm {
+.filter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 th {
@@ -45,7 +46,7 @@ th[scope="col"] {
 }
 
 th > img {
-  width: 50px;
+  width: 80px;
   text-align: center;
 }
 
@@ -72,14 +73,27 @@ table {
   width: 100%;
 }
 
+.name-table {
+  font-weight: 500;
+}
+
 .pagination {
   display: inline-block;
+  background-color: white;
   color: black;
   text-decoration: none;
-  padding: 0.2em 0.5em;
+  padding: 0.4em 0.7em;
   margin-right: 0.1rem;
   margin-top: 1em;
   border: 1px solid black;
+  cursor: pointer;
+}
+
+.pagination:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
 }
 
 /* HEADER */
@@ -217,8 +231,25 @@ table {
   }
 }
 
+@media (max-width: 832px) {
+  .basic-info .profile {
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.5rem;
+  }
+  .basic-info .general-stats {
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0;
+  }
+}
+
 #user {
   color: #2bffc9;
+}
+
+.user-profile h2 {
+  color: black;
+  font-weight: 600;
+  font-size: 4rem;
 }
 
 /* BODY */
@@ -370,6 +401,7 @@ fieldset {
 
 label {
   display: block;
+  margin-bottom: 0.2rem;
 }
 
 .position-container {
@@ -453,7 +485,7 @@ label {
 .league-box:hover {
   -webkit-transition: 0.2s;
   transition: 0.2s;
-  background-color: #9a8c98;
+  background-color: #000000;
 }
 
 #forward {
@@ -480,6 +512,19 @@ label {
   background-color: #636363;
 }
 
+.basic-info {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(25em, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+  margin-bottom: 5rem;
+}
+
+.specific-title {
+  color: #392047;
+  font-weight: 600;
+}
+
 .profile {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -490,10 +535,14 @@ label {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  background-color: #9337f7;
+  padding: 2rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .profile img {
-  width: 10rem;
+  width: 12rem;
 }
 
 .profile h2 {
@@ -507,7 +556,7 @@ label {
 .profile p {
   -webkit-margin-before: 0.5rem;
           margin-block-start: 0.5rem;
-  color: #808080;
+  color: #260057;
   font-weight: 600;
 }
 
@@ -525,6 +574,7 @@ label {
 
 .general-info h2 {
   font-size: 3rem;
+  color: white;
 }
 
 .short-info {
@@ -543,12 +593,13 @@ label {
 .general-stats {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(15em, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  -ms-grid-columns: (minmax(11em, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(11em, 1fr));
   max-width: 60rem;
-  border-radius: 0.5em;
-  background-color: #29265f;
-  margin-bottom: 5em;
+  padding: 1rem;
+  background-color: #1a183b;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .general-stats div {
@@ -575,11 +626,14 @@ label {
   gap: 1em;
   justify-items: center;
   border-radius: 0.5em;
-  background-color: #894fff;
+  background-color: #1e2636;
 }
 
 .specific-stats div {
   text-align: center;
+  border-radius: 0.5em;
+  width: 10rem;
+  height: 10rem;
 }
 
 .specific-stats h2 {
@@ -589,7 +643,7 @@ label {
 }
 
 .specific-stats h3 {
-  color: #2bffc9;
+  color: white;
   font-size: 5em;
   font-weight: 300;
   -webkit-margin-before: 0em;
@@ -598,21 +652,62 @@ label {
           margin-block-end: 0em;
 }
 
-.club-search {
-  height: 0.1rem;
-  margin-bottom: 2rem;
+.specific-stats .high {
+  background-color: #4caf50;
 }
 
-.fave {
-  background-color: #F60104;
+.specific-stats .medium {
+  background-color: #ffc941;
+}
+
+.specific-stats .low {
+  background-color: #d23a12;
+}
+
+.club-profile h2,
+.league-profile h2,
+.position-profile h2 {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.club-search {
+  margin-bottom: 2rem;
+  margin-right: 1rem;
+}
+
+.filterForm input[type="submit"] {
+  height: 2.5rem;
+  width: 6rem;
+}
+
+#unfave {
+  background-color: #f60104;
   color: white;
-  padding: 0.8rem 1.8rem;
+  padding: 1rem 2rem;
   border-radius: 0.3rem;
   -webkit-transition: 0.2s;
   transition: 0.2s;
 }
 
-.fave:hover {
+#unfave:hover {
+  background-color: black;
+  color: white;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#fave {
+  background-color: #007ff7;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.3rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  margin-right: 1rem;
+}
+
+#fave:hover {
   background-color: black;
   color: white;
   -webkit-transition: 0.2s;

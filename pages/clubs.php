@@ -108,7 +108,7 @@ if (mysqli_connect_errno()) {
 
                         // this is the creation of the club
                         echo "<tr>";
-                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
+                        echo "<td class='name-table'> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
                         echo "</tr>";
                     }
                 }

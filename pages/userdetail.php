@@ -81,11 +81,8 @@ $row_basic = mysqli_fetch_assoc($query_basic);
     <main>
 
         <div>
-            <div class="profile">
-                <div class="general-info">
-                    <h2><?php echo $_SESSION["username"]; ?></h2>
-
-                </div>
+            <div class="user-profile">                
+                    <h2>Welcome back, <?php echo $_SESSION["username"]; ?></h2>        
             </div>
 
             <!-- Input form for changing username and password -->

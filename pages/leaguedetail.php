@@ -83,7 +83,9 @@ $leagueName = $row_basic['leagueName'];
 
     <main>
 
-        <h2><?php echo $leagueName; ?></h2>
+        <div class="league-profile">
+            <h2><?php echo $leagueName; ?></h2>
+        </div>
         <!--Creates a table in HTML to start off with and puts club at the top-->
         <table class="table">
             <thead>
@@ -116,7 +118,7 @@ $leagueName = $row_basic['leagueName'];
                         $row2 = $result2->fetch_assoc();
                         echo "<tr>";
                         // passes the info to the clubdetail page where it takes it from there.
-                        echo "<td> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
+                        echo "<td class='name-table'> <a href='../pages/clubdetail.php?id=" . $row2['clubid'] . "'>" . $row['clubname'] . "</a></td>";
                         echo "</tr>";
                     }
                 }
