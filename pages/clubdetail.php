@@ -114,9 +114,9 @@ $playerName = $row_basic['playerName'];
                     $clubName = $row["clubname"];
 
                     $query = "SELECT player.playerid, player.playerName, player.cardRating, player.position, club.clubname, player.workRates, player.strongFoot 
-                FROM club
-                INNER JOIN player ON player.playerid = club.playerid
-                WHERE club.clubid = $clubId OR club.clubname = '$clubName'";
+                        FROM club
+                        INNER JOIN player ON player.playerid = club.playerid
+                        WHERE club.clubid = $clubId OR club.clubname = '$clubName'";
 
                     // learned from: https://www.youtube.com/watch?v=gdEpUPMh63s
                     // pagination

@@ -73,8 +73,6 @@ if (mysqli_connect_errno()) {
             $temp = '<input class="club-search" type = "search" name = "search" class = "searchBox" oninput = getSearch(this.value)>';
             echo $temp;
             ?>
-            <input type = 'submit'>
-        </form>
         <table class="table" id = "clubTable">
             <thead>
                 <tr>
