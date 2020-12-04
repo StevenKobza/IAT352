@@ -81,7 +81,7 @@ if (mysqli_connect_errno()) {
             $strongFootResult = mysqli_query($connection, "SELECT DISTINCT strongFoot FROM player");
             ?>
             <label for="position">Position</label>
-            <select name="position" id="position" onchange="filter(this.value, 'position')">
+            <select name="position" id="position" onchange="filter(this.value, 'position', 'base')">
                 <option value="">Select One</option>
                 <?php
                 // populate position filter with distinct position values and if selected, keep the selected value
@@ -99,7 +99,7 @@ if (mysqli_connect_errno()) {
                 ?>
                 </select>
                 <label for="workRate">Work Rate</label>
-                <select name="workRate" id="workRate" onchange="filter(this.value, 'workRate')">
+                <select name="workRate" id="workRate" onchange="filter(this.value, 'workRate', 'base')">
                     <option value="">Select One</option>
                     <?php
                     // populate workRate filter with distinct values and if selected, keep the selected value
@@ -117,7 +117,7 @@ if (mysqli_connect_errno()) {
                     ?>
                 </select>
                 <label for="strongFoot">Strong Foot</label>
-                <select name="strongFoot" id="strongFoot" onchange="filter(this.value, 'strongFoot')">
+                <select name="strongFoot" id="strongFoot" onchange="filter(this.value, 'strongFoot', 'base')">
                     <option value="">Select One</option>
                     <?php
                     // populate strongFoot filter with distinct values and if selected, keep the selected value
@@ -223,13 +223,13 @@ if (mysqli_connect_errno()) {
             $link = "";
             if ($page > 1)         // show 1 if on page 2 and after
             {
-                $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value) value = 1>1</button>";
+                $link .= "<button id = 'pagination' class = 'pagination' onclick = changePage(this.value, 'base') value = 1>1</button>";
                 //$link .= "<a class='pagination' href=\"?page=1\">1 </a> ... ";
             }
             // create links for rest of the pages and add page number based on for-loop index
             for ($x = $page; $x <= $number_of_pages; $x++) {
                 if ($counter < $limit)
-                    $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value) value = " . $x . ">" . $x . "</button>";
+                    $link .= "<button id = 'pagination' class='pagination' onclick = changePage(this.value, 'base') value = " . $x . ">" . $x . "</button>";
                     //\"?page=" . $x . "\">" . $x . " </a>";
 
                 $counter++;
@@ -237,7 +237,7 @@ if (mysqli_connect_errno()) {
             // add dots between pages if the page number is less than the total number of pages minus maximum number of pagination numbers allowed, divided by two
             if ($page < $number_of_pages - ($limit / 2)) {
                 
-                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value) value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
+                $link .= "... " . "<button id = 'totalPage' class='pagination' onclick = changePage(this.value, 'base') value = " . $_SESSION["numPage"] . ">" . $_SESSION["numPage"] . "</button>";
                 //href=\"?page=" . $number_of_pages . "\">" . $number_of_pages . " </a>";
             }
         }
