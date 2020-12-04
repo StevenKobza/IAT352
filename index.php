@@ -165,48 +165,6 @@ if (mysqli_connect_errno()) {
                     FROM player 
                     INNER JOIN club ON player.playerid = club.playerid";
                 }
-                //$somethingSet = false;
-                /*
-                if (isset($_POST["strongFoot"])) {
-                    if ($_POST["strongFoot"] != "") {
-                        if ($somethingSet == true) {
-                            $query .= " AND ";
-                        } else if ($somethingSet == false) {
-                            $query .= " where ";
-                            $somethingSet = true;
-                        }
-                        $temp = $_POST["strongFoot"];
-                        $temp = "\"$temp\"";
-                        $query .= "strongFoot = " . $temp;
-                    }
-                }
-                if (isset($_POST["workRate"])) {
-                    if ($_POST["workRate"] != "") {
-                        if ($somethingSet == true) {
-                            $query .= " AND ";
-                        } else if ($somethingSet == false) {
-                            $query .= " where ";
-                            $somethingSet = true;
-                        }
-                        $temp = $_POST["workRate"];
-                        $temp = "\"$temp\"";
-                        $query .= "workRates = " . $temp;
-                    }
-                }
-                if (isset($_POST["position"])) {
-                    if ($_POST["position"] != "") {
-                        if ($somethingSet == true) {
-                            $query .= " AND ";
-                        } else if ($somethingSet == false) {
-                            $query .= " where ";
-                            $somethingSet = true;
-                        }
-                        $temp = $_POST["position"];
-                        $temp = "\"$temp\"";
-                        $query .= "position = " . $temp;
-                    }
-                }*/
-
 
                 // learned from: https://www.youtube.com/watch?v=gdEpUPMh63s
                 // pagination
