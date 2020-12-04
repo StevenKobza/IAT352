@@ -63,15 +63,11 @@ if (mysqli_connect_errno()) {
 
 
     <main>
-        <form action = "" class = filterForm method = "post">
-            
             <?php 
             //If it already exists, then just add the original search as a placeholder
-            $temp = '<input class="club-search" type = "text" name = "search" class = "searchBox" oninput = getSearch(this.value)>';
+            $temp = '<input class="club-search" type = "text" name = "search" class = "searchBox" oninput = getSearch(this.value) placeholder = "Search Clubs">';
             echo $temp;
             ?>
-            <input type = 'submit'>
-        </form>
         <table class="table" id = "clubTable">
             <thead>
                 <tr>
