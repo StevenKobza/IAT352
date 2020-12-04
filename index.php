@@ -33,7 +33,6 @@ if (mysqli_connect_errno()) {
         integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
         crossorigin="anonymous"></script>
     <script src = "js/ajax.js"></script>
-    <script src = "https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
 </head>
 
 <body>
