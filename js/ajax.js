@@ -18,6 +18,12 @@ function filter(str, type) {
     oldStr = str;
     oldType = type;
     var table = document.getElementById("table");
+    var position = document.getElementById("position");
+    var workRate = document.getElementById("workRate");
+    var strongFoot = document.getElementById("strongFoot");
+
+    let output = "?pos=" + position.value + "&work=" + workRate.value + "&strong=" + strongFoot.value;
+    console.log(output);
 
     var link = document.getElementById("list");
     let xhttp;
@@ -27,9 +33,10 @@ function filter(str, type) {
             var temp = this.responseText.split("IAT352");
             table.innerHTML = temp[0];
             link.innerHTML = temp[1];
+
         }
     };
-    xhttp.open("GET", "data/getPlayers.php?p=" + str + "&t=" + type, true);
+    xhttp.open("GET", "data/getPlayers.php" + output, true);
     xhttp.send();
 }
 

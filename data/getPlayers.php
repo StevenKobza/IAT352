@@ -20,14 +20,38 @@
     FROM player 
     INNER JOIN club ON player.playerid = club.playerid";
     
-    if (isset($_GET["p"])) {
-        if ($_GET["p"] == "") {
+    if (isset($_GET["pos"])) {
+        if ($_GET["pos"] == "") {
 
         } else {
-        $temp = "'". $_GET['p'] . "'";
+        $temp = "'". $_GET['pos'] . "'";
         }
     }
-    if ($_GET["t"] == "position" && $_GET["p"] != "") {
+    $moreThanOne = false;
+    if ($_GET["pos"] != "") {
+        $query .= " WHERE position = " . "$temp";
+        $moreThanOne = true;
+    } 
+    $temp = "'" . $_GET["work"]. "'";
+    if ($_GET["work"] != "") {
+        if ($moreThanOne) {
+            $query .= " AND ";
+        } else {
+            $query .= " WHERE ";
+        }
+        $query .= " workRates = " . "$temp";
+        $moreThanOne = true;
+    }
+    $temp = "'" . $_GET["strong"]. "'";
+    if ($_GET["strong"] != "") {
+        if ($moreThanOne) {
+            $query .= " AND ";
+        } else {
+            $query .= " WHERE ";
+        }
+        $query .= " strongFoot = " . "$temp";
+    }
+    /*if ($_GET["t"] == "position" && $_GET["p"] != "") {
         $query .= " WHERE position = " . "$temp";
     } 
     else if ($_GET["t"] == "workRate" && $_GET["p"] != "") {
@@ -35,7 +59,7 @@
     }
     else if ($_GET["t"] == "strongFoot" && $_GET["p"] != "") {
         $query .= " WHERE strongFoot = " . "$temp";
-    }
+    }*/
 
     //echo $query;
     // learned from: https://www.youtube.com/watch?v=gdEpUPMh63s
@@ -50,6 +74,7 @@
     }
     $result = $mysqli->query($query);
     if ($mysqli->connect_errno) {
+        echo $mysqli->connect_errno;
         echo "Failed to connect to MySQL: " . $mysqli->connect_error; 
     }
     $number_of_results = mysqli_num_rows($result);
